@@ -10,13 +10,15 @@
         "helix/static/helix.css.map": true,
         ".vscode": true,
         "helix/static/stylesheets/helix.css": true,
-        "helix/static/stylesheets/helix.css.map": true
+        "helix/static/stylesheets/helix.css.map": true,
+        "helix/base/__pycache__": true
     },
     "hide-files.files": [
         "helix/static/helix.css",
         "helix/static/helix.css.map",
         ".vscode",
         "helix/static/stylesheets/helix.css",
-        "helix/static/stylesheets/helix.css.map"
+        "helix/static/stylesheets/helix.css.map",
+        "helix/base/__pycache__"
     ]
 }
