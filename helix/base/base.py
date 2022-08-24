@@ -9,6 +9,6 @@ base_bp = flask.Blueprint('base_bp',
 def index():
     return flask.render_template('base/templates/home.html')
 
-@base_bp.route('/login')
-def login():
-    return flask.render_template('base/templates/home.html')
+@base_bp.route('/register')
+def register():
+    return flask.render_template('base/templates/register.html')

@@ -1,0 +1,52 @@
+@import "_vars"
+
+div.hx-form
+    width: 400px
+    margin: 0 auto
+    text-align: center
+
+    h1
+        margin-top: 0
+
+    label
+        margin-top: .5rem
+        text-align: left
+        display: inline-block
+
+    button, input
+        &:not([type="checkbox"]):focus
+            outline: none
+
+        &.hx-secondary
+            background: $accent-alt
+
+        &.hx-tertiary
+            background: none
+            border: 1px solid $fg
+
+            &:hover
+                border: 1px solid transparent
+                background: $accent-blueish
+
+    button
+        border-radius: 10px
+        font-weight: normal
+        margin-top: 5px
+        font-variant-caps: titling-caps
+
+    a
+        color: $fg-alt
+        text-decoration: none
+
+        &:hover
+            text-decoration: underline
+
+        &.hx-password-reset
+            margin-left: 60%
+
+    *:not([type="checkbox"])
+        width: 100%
+
+@media (max-width: 800px)
+    form.hx-form-container
+        width: 100%

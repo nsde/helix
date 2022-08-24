@@ -1,0 +1,59 @@
+{% with title="Home" %}
+    {% include "components/top.html" %}
+{% endwith %}
+
+<body>
+    {% include "components/pjs.html" %}
+
+    <div class="hx-main">
+        <div class="hx-form">
+            <h1>Create a new account</h1>
+            <p>Already have an account? <a href="/login">Log in</a></p>
+            <br>
+            
+            <form method="POST">
+                <div class="hx-group">
+                    <label for="email">E-Mail</label>
+                    <input
+                        type="email"
+                        id="email"
+                        name="email"
+                        placeholder="violet@proton.me"
+                        autofocus
+                    />
+                </div>
+                <br>
+                <div class="hx-group">
+                    <label for="password">
+                        Password
+                        <a id="password-reset" href="/login/password-reset">Forgotten?</a>
+                    </label>
+                    <input
+                        type="password"
+                        id="password"
+                        name="password"
+                        placeholder="•••••••••••"
+                    />
+                </div>
+
+                <p>
+                    <input type="checkbox" id="agree-legal" name="agree-legal" value="true" required>
+                    &nbsp;I agree to the
+                    <a href="https://onlix.me/legal" target="_blank">
+                        ToS and privacy policy
+                    </a>
+                </p>
+
+                <button type="submit" class="hx-primary hx-wide" formaction="/login">
+                    Login
+                </button>
+                <button type="submit" class="hx-secondary hx-wide" formaction="/register">
+                    Create a new account
+                </button>
+                <p><a href="/signup"></a></p>
+            </form>
+        </div>
+    </div>
+</body>
+
+{% include "components/end.html" %}

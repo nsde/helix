@@ -11,7 +11,13 @@
         ".vscode": true,
         "helix/static/stylesheets/helix.css": true,
         "helix/static/stylesheets/helix.css.map": true,
-        "helix/base/__pycache__": true
+        "helix/base/__pycache__": true,
+        "helix/static/stylesheets/userbox.css": true,
+        "helix/static/stylesheets/userbox.css.map": true,
+        "helix/static/stylesheets/helium.css": true,
+        "helix/static/stylesheets/helium.css.map": true,
+        "helix/static/stylesheets/hxforms.css.map": true,
+        "helix/static/stylesheets/hxforms.css": true
     },
     "hide-files.files": [
         "helix/static/helix.css",
@@ -19,6 +25,12 @@
         ".vscode",
         "helix/static/stylesheets/helix.css",
         "helix/static/stylesheets/helix.css.map",
-        "helix/base/__pycache__"
+        "helix/base/__pycache__",
+        "helix/static/stylesheets/userbox.css",
+        "helix/static/stylesheets/userbox.css.map",
+        "helix/static/stylesheets/helium.css",
+        "helix/static/stylesheets/helium.css.map",
+        "helix/static/stylesheets/hxforms.css.map",
+        "helix/static/stylesheets/hxforms.css"
     ]
 }
