@@ -14,6 +14,8 @@ div.hx-form
         display: inline-block
 
     button, input
+        font-size: larger
+
         &:not([type="checkbox"]):focus
             outline: none
 
@@ -31,7 +33,7 @@ div.hx-form
     button
         border-radius: 10px
         font-weight: normal
-        margin-top: 5px
+        margin-top: 1rem
         font-variant-caps: titling-caps
 
     a
@@ -46,6 +48,10 @@ div.hx-form
 
     *:not([type="checkbox"])
         width: 100%
+
+    input[type="checkbox"]
+        transform: scale(1.4)
+        filter: hue-rotate(60deg)
 
 @media (max-width: 800px)
     form.hx-form-container

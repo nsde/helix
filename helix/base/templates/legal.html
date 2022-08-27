@@ -1,0 +1,28 @@
+{% with title="Legal" %}
+    {% include "components/top.html" %}
+{% endwith %}
+
+<body>
+    <div class="hx-main hx-long-text">
+        <a href="/" target="_blank">Return back home</a>
+        <h1>General details</h1>
+        <p>
+            HELIX is a social platform maintained, developed and designed by <a href="https://onlix.me">ONLIX</a>.
+            All servers hosting this service are based in the European Union (Germany).
+        </p>
+        <p>
+            Because transparency is one of our most important aspects, the code is fully <a href="https://github.com/nsde/helix" target="_blank">open source on GitHub
+            under the MIT license</a>.
+        </p>
+
+        <h1>Legal</h1>
+        <p>
+            Legal information - including license, privacy policy, terms of service and more - can be found here:
+            <a href="https://onlix.me/legal" target="_blank">https://onlix.me/legal</a>
+        </p>
+    </div>
+</body>
+
+{% with hide_footer=true %}
+    {% include "components/end.html" %}
+{% endwith %}

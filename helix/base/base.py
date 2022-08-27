@@ -12,3 +12,7 @@ def index():
 @base_bp.route('/register')
 def register():
     return flask.render_template('base/templates/register.html')
+
+@base_bp.route('/legal')
+def legal():
+    return flask.render_template('base/templates/legal.html')

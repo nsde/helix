@@ -6,10 +6,16 @@ html.hx
     padding: 0
     background: $bg
     font-family: 'Inter', sans-serif !important
+    line-height: 1.5
+    font-size: 1.2rem
 
     body
         margin: 0
         padding: 3rem
+
+div.hx-long-text
+    width: 50%
+    margin: auto
 
 *
     color: $fg
@@ -22,9 +28,6 @@ html.hx
         filter: hue-rotate(100deg)
 
 #particles-js.hx-pjs
-    // width: calc(100vw - 4px)
-    // height: calc(100vh - 3.1px)
-
     animation: rgbEffect 1s linear infinite alternate
     background: $bg
 
@@ -32,34 +35,33 @@ html.hx
         cursor: crosshair !important
 
 div.hx-main
-    // padding: 2rem 5rem
-
-    h2
-        font-size: 6rem
+    h1.hx-huge
+        font-size: 3rem
 
     button
         width: max-content
         border: 0
         padding: 1rem
         font-size: x-large
-        font-weight: bold
         background: transparent
-        // border-radius: 10px
-
-        outline: 2px solid $accent
         transition: outline 0s background .5s
+        font-weight: bold
 
         &:hover
             cursor: pointer
             background: $accent
-            // outline-color: transparent
+        
+        &:active
+            transform: scaleY(0.98) translateY(2px)
+
+        &.hx-outline
+            outline: 2px solid $accent
 
     a
         text-decoration: underline
 
         &:hover
             text-decoration: none
-
 
     &.hx-form
         text-align: center
@@ -79,21 +81,21 @@ div.hx-main
 
     input[type="checkbox"]
         &:hover
-            cursor: pointer
-
-header.hx h1
-    // padding: 0
+            cursor: pointer    
 
 @media (max-width: 768px)
     div.hx-main
         padding: 0
 
-        h2
+        h1.hx-huge
             font-size: 4rem
 
-header.hx *
-    text-decoration: underline
-    text-decoration-color: $accent !important
+header.hx h1
+    margin: 0
+
+    a
+        text-decoration: underline
+        text-decoration-color: $accent !important
 
 footer.hx
     // position: absolute
