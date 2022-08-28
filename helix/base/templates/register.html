@@ -1,8 +1,8 @@
-{% with title="Home" %}
+{% with title="Home", blueprint="base" %}
     {% include "components/top.html" %}
 {% endwith %}
 
-<body>
+<body class="hx-base">
     {% include "components/pjs.html" %}
 
     <div class="hx-main">
@@ -39,8 +39,8 @@
 
                 <p>
                     <input type="checkbox" id="agree-legal" name="agree-legal" value="true" required>
-                    I have read and agree to the <a href="/legal" target="_blank">terms of service</a>
-                    and <a href="/legal" target="_blank">privacy policy</a>.
+                    I have read and agree to the <a href="/about#legal" target="_blank">terms of service</a>
+                    and <a href="/about#legal" target="_blank">privacy policy</a>.
                 </p>
 
                 <button type="submit" class="hx-primary hx-outline hx-wide">

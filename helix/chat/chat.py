@@ -19,5 +19,11 @@ DEMO_ROOMS = [
 @flask_login.login_required
 @chat_bp.route('/chat')
 def chat():
+    if flask.request.args.get('deletion-failed') == '1':
+        flask.flash('Incorrect password, your account hasn\'t been deleted.', category='error')
+
     # return str(flask_login.current_user.is_authenticated)
-    return flask.render_template('chat/templates/chat.html', rooms=DEMO_ROOMS, avatar='https://github.com/nsde/strobe/raw/master/logo.png', username='Wolf')
+    return flask.render_template('chat/templates/chat.html',
+        rooms=DEMO_ROOMS,
+        avatar='https://github.com/nsde/strobe/raw/master/logo.png',
+    )

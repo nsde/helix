@@ -74,7 +74,7 @@ class EmojiKeyboard {
             else
                 return;
         }
-        kb.classList.toggle('emojikb-hidden');
+        // kb.classList.toggle('emojikb-hidden');
     }
 
     add_emojis(emojis) {
@@ -231,7 +231,7 @@ class EmojiKeyboard {
         catch (err) {
             console.error(err);
         }
-        console.warn("Missing emoji category:", subcategory)
+        // console.warn("Missing emoji category:", subcategory)
     }
 
     create_keyboard(document) {

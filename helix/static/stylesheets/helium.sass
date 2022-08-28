@@ -9,8 +9,12 @@ html.hx
     font-size: 1.2rem
 
     body
+        height: 100vh
         margin: 0
         padding: 3rem
+
+    &.hx-bp-base
+        background: black
 
     *
         font-family: 'Inter', sans-serif !important
@@ -31,7 +35,7 @@ div.hx-long-text
 
 #particles-js.hx-pjs
     animation: rgbEffect 1s linear infinite alternate
-    background: $bg
+    background: black
 
     &:hover
         cursor: crosshair !important
@@ -49,15 +53,32 @@ div.hx-main
         transition: outline 0s background .5s
         font-weight: bold
 
-        &:hover
+        &:not(.hx-alt):hover
             cursor: pointer
             background: $accent
         
+        &.hx-alt
+            outline: 2px solid transparent
+
         &:active
             transform: scaleY(0.98) translateY(2px)
 
         &.hx-outline
             outline: 2px solid $accent
+
+        &.hx-primary
+            background: $accent
+            margin-right: 1rem
+
+            &:hover
+                background: transparent
+
+        &.hx-secondary
+            border-bottom: 2px solid $accent
+            
+            &:hover
+                cursor: pointer
+                outline: 2px solid $accent
 
     a
         text-decoration: underline
@@ -81,6 +102,12 @@ div.hx-main
         background: $bg-input
         border-radius: 10px
 
+        &.hx-red
+            background: $bg-red
+
+        &:focus
+            outline: none
+
     input[type="checkbox"]
         &:hover
             cursor: pointer    
@@ -90,7 +117,7 @@ div.hx-main
         padding: 0
 
         h1.hx-huge
-            font-size: 4rem
+            font-size: 3rem
 
 header.hx h1
     margin: 0

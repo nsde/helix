@@ -1,14 +1,14 @@
-{% with title="Home" %}
+{% with title="Home", blueprint="base" %}
     {% include "components/top.html" %}
 {% endwith %}
 
-<body>
+<body class="hx-base">
     {% include "components/pjs.html" %}
 
     <div class="hx-main">
         <div class="hx-form">
             <h1>Log into your account</h1>
-            <p>Don't have an account? <a href="/register">Register for free</a></p>
+            <p>Don't have an account yet? <a href="/register">Register now</a>!</p>
             <br>
        
             {% include "components/flasher.html" %}
@@ -28,7 +28,7 @@
                 <div class="hx-group">
                     <label for="password">
                         Password
-                        <a id="password-reset" href="/login/password-reset">Forgotten?</a>
+                        <!-- <a id="password-reset" href="/login/password-reset">Forgotten?</a> -->
                     </label>
                     <input
                         type="password"

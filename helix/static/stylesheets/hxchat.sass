@@ -58,6 +58,9 @@ div.hx-sidebar
         padding-top: 1rem
         border-top: 2px solid $fg-grey
 
+        h1
+            margin-bottom: 0
+
         img
             height: 50px
             position: relative
@@ -85,6 +88,46 @@ div.hx-sidebar
         div.hx-content:hover
             cursor: pointer
             opacity: 0.5
+
+    div.hx-profile-popup
+        text-align: center
+        background: $bg-dim
+        height: 100%
+        width: 100%
+        opacity: 1
+        position: fixed
+        height: 0
+        z-index: 1200
+        top: 0
+        left: 0
+        overflow-x: hidden
+        transition: height .5s ease-out, opacity .5s
+
+        img
+            border-radius: 50%
+            height: 100px
+
+            &:hover
+                cursor: pointer
+                opacity: 0.7s
+
+        .hx-close-profile
+            position: absolute
+            left: 1rem
+            top: 1rem
+            font-size: 1.5rem
+            padding: .5rem
+            border-radius: 50%
+            width: 2.5rem
+            height: 2.5rem
+
+            &:hover
+                cursor: pointer
+                background: $bg
+
+            &:active
+                opacity: 0.6
+
 
 div.hx-chat-top-bar
     position: sticky
@@ -126,9 +169,38 @@ div.hx-chat-top-bar
         background: $bg-dim
 
 div.hx-chat-history
+    background: $bg-dim
     margin-bottom: 2rem
 
 @media (max-width: 1200px)
+    .hx-profile-tab
+        display: inline-block !important
+        opacity: 0.4
+        text-decoration: none !important
+
+        &:hover
+            cursor: pointer
+            opacity: 0.2
+
+    div.hx-chatbox div.hx-input-box input
+        width: 85vw
+
+    .hx-close-room-chooser
+        display: block
+        position: absolute
+        left: .2rem
+        top: .2rem
+        font-size: 1.5rem
+        padding: .5rem
+        border-radius: 50%
+        width: 2.5rem
+        height: 2.5rem
+        z-index: 600
+
+        &:hover
+            cursor: pointer
+            opacity: 0.6
+
     div.hx-sidebar
         // position: sticky
         top: 0
@@ -147,12 +219,13 @@ div.hx-chat-history
     div.hx-chatbox
         margin-left: 0 !important
 
-    html.hx>body
-        padding: 0 !important
 
-    div.hx-chat-history
-        padding: 1rem
-        margin-bottom: 3rem
+div.hx-chat-history
+    padding: 1rem
+    margin-bottom: 4rem
+
+html.hx>body.hx-chat
+    padding: 0 !important
 
 div.hx-chatbox
     height: 100%
@@ -168,6 +241,7 @@ div.hx-chatbox
             border-radius: 10px
             min-width: min-content
             max-width: 200px
+            box-shadow: 5px 5px 20px $bg-shadow
             // margin-bottom: 1rem
 
             div.hx-author
@@ -258,6 +332,12 @@ div.hx-chatbox
                 outline: none
 
 @media (min-width: 1200px)
+    div.hx-sidebar
+        padding: 3rem
+
+    div.hx-user-profile
+        margin: 3rem
+
     div.hx-chat-top-bar
         i.hx-chat-menu
             display: none
@@ -267,26 +347,6 @@ div.hx-chatbox
 
 .hx-close-room-chooser
     display: none
-
-@media (max-width: 1200px)
-    div.hx-chatbox div.hx-input-box input
-        width: 85vw
-
-    .hx-close-room-chooser
-        display: block
-        position: absolute
-        left: .2rem
-        top: .2rem
-        font-size: 1.5rem
-        padding: .5rem
-        border-radius: 50%
-        width: 2.5rem
-        height: 2.5rem
-        z-index: 600
-
-        &:hover
-            cursor: pointer
-            opacity: 0.6
 
 @media (max-width: 700px)
     div.hx-chatbox div.hx-input-box input
@@ -334,14 +394,45 @@ div.hx-room-details-popup
         &:active
             opacity: 0.6
 
-    button.hx-room-action
-        border-radius: 10px !important
+button.hx-action-button
+    border-radius: 10px !important
 
-        i
-            margin-right: 5px
+    i
+        margin-right: 5px
 
-        &.hx-red:hover
-            background: $danger
+    &.hx-yellow:hover
+        background: $warn
+
+    &.hx-red:hover
+        background: $danger
 
 span.hx-text-light
     opacity: 0.6
+
+@keyframes breathingAlert
+    from
+        border-bottom: 2px solid transparent
+
+    to
+        border-bottom: 2px solid $fg-grey
+
+div.hx-floating-alert
+    top: 1rem
+    left: 1rem
+    z-index: 9000
+    position: fixed
+    max-width: 300px
+    background: $bg-pop !important
+    box-shadow: 0 0 15px black
+    backdrop-filter: blur(3px)
+    animation: breathingAlert 1s linear infinite alternate
+
+    i.hx-close
+        display: inherit
+
+div.hx-deletion-warning
+    opacity: 0
+    height: 0
+
+.hx-profile-tab
+    display: none

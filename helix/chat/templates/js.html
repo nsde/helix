@@ -9,24 +9,62 @@
     emojiKeyboard.instantiate(document.getElementById("emoji-picker"))
 </script>
 <script>
-    var popUp = document.getElementById("room-details-popup").style
+    var roomDetails = document.getElementById("room-details-popup").style
+    var profile = document.getElementById("room-details-popup").style
     var menuChooser = document.getElementById("room-chooser").style
     var chat = document.getElementById("chat-box").style
     var userProfile = document.getElementById("user-profile").style
+    var profilePopup = document.getElementById("profile-popup").style
+    var deletionWarning = document.getElementById("deletion-warning").style
     
+    function hideChat() {
+        chat.display = "none";
+        userProfile.display = "none";
+    }
+
+    function showChat() {
+        userProfile.display = "inherit";
+        chat.display = "inherit";
+    }
+
+    function accountDeletionWarning() {
+        deletionWarning.height = "100%";
+        deletionWarning.opacity = "1";
+    }
+
+    // Profile Window
+    function openProfile() {
+        hideChat();
+        profilePopup.height = "100%";
+        profilePopup.opacity = "1";
+    }
+
+    function openProfileOnMobile() {
+        profilePopup.height = "100%";
+        profilePopup.opacity = "1";
+    }
+    
+    function closeProfile() {
+        if (window.innerWidth > 1200) {
+            showChat();
+        }
+
+        profilePopup.height = "0%";
+        profilePopup.opacity = "0";
+    }
+
     function openRoomDetails() {
-        popUp.height = "100%";
-        popUp.opacity = "1";
+        roomDetails.height = "100%";
+        roomDetails.opacity = "1";
     }
     
     function closeRoomDetails() {
-        popUp.height = "0%";
-        popUp.opacity = "0";
+        roomDetails.height = "0%";
+        roomDetails.opacity = "0";
     }
 
     function openRoomChooser() {
-        chat.display = "none";
-        userProfile.display = "none";
+        hideChat();
         event.stopPropagation();
 
         menuChooser.width = "100%";
@@ -34,8 +72,13 @@
     }
     
     function closeRoomChooser() {
-        userProfile.display = "inherit";
-        chat.display = "inherit";
+        chat.display = "none";
+        if (window.innerWidth > 1200) {
+            showChat();
+        }
+        
+        chat.display = "none";
+        chat.display = "none";
 
         menuChooser.width = "0%";
         menuChooser.opacity = "0";

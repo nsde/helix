@@ -1,8 +1,8 @@
-{% with title="Home" %}
+{% with title="Home", blueprint="base" %}
     {% include "components/top.html" %}
 {% endwith %}
 
-<body>
+<body class="hx-base">
     {% include "components/pjs.html" %}
 
     <div class="hx-main">
@@ -10,8 +10,13 @@
             A new way
             of connecting
         </h1>
-        <a href="/register">
-            <button class="hx-outline">Get started now</button>
+        <a href="/register" class="hx-button">
+            <button class="hx-outline hx-primary">Get started now</button>
+        </a>
+        <a href="https://github.com/nsde/helix" class="hx-button" target="_blank">
+            <button class="hx-alt hx-secondary">Open Source
+                <i class="bi bi-box-arrow-up-right"></i>
+            </button>
         </a>
     </div>
 </body>

@@ -66,10 +66,19 @@ div.hx-alert {
   text-align: left;
   border-left: 3px solid transparent;
   margin-bottom: 1rem;
+  transition: transform 1s ease-in;
 }
-div.hx-alert.hx-danger {
+div.hx-alert.hx-error {
   border-left-color: #df2a19;
 }
 div.hx-alert.hx-success {
   border-left-color: #18b718;
+}
+div.hx-alert .hx-close {
+  display: none;
+  float: right;
+}
+div.hx-alert .hx-close:hover {
+  cursor: pointer;
+  opacity: 0.5;
 }/*# sourceMappingURL=hxforms.css.map */

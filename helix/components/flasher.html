@@ -1,15 +1,18 @@
 {% with messages = get_flashed_messages(with_categories=true) %}
     {% if messages %}
         {% for category, message in messages %}
-            {% if category == 'error' %}
-                <div class="hx-alert hx-danger">
-                    {{ message }}
-                </div>
-            {% else %}
-                <div class="hx-alert hx-success">
-                    {{ message }}
-                </div>
-            {% endif %}
+            <script>
+                console.log('[HELIX] {{ category }}: {{ message }}');
+
+                function closeAlert() {
+                    document.getElementById('alert').style.transform = 'translateX(-1000px)';
+                }
+            </script>
+
+            <div class="hx-alert {{ class }} hx-{{ category }}" id="alert">
+                <i class="bi bi-x-lg hx-close" onclick="closeAlert();"></i>
+                {{ message }}
+            </div>
         {% endfor %}
     {% endif %}
 {% endwith %}

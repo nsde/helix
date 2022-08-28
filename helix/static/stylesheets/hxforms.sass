@@ -66,9 +66,18 @@ div.hx-alert
     border-left: 3px solid transparent
     margin-bottom: 1rem
     // border-radius: 10px
+    transition: transform 1s ease-in
     
-    &.hx-danger
+    &.hx-error
         border-left-color: $danger
 
     &.hx-success
         border-left-color: $success
+
+    .hx-close
+        display: none
+        float: right
+
+        &:hover
+            cursor: pointer
+            opacity: 0.5

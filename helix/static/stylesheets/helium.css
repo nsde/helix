@@ -7,8 +7,12 @@ html.hx {
   font-size: 1.2rem;
 }
 html.hx body {
+  height: 100vh;
   margin: 0;
   padding: 3rem;
+}
+html.hx.hx-bp-base {
+  background: black;
 }
 html.hx * {
   font-family: "Inter", sans-serif !important;
@@ -44,7 +48,7 @@ div.hx-long-text {
 #particles-js.hx-pjs {
   -webkit-animation: rgbEffect 1s linear infinite alternate;
           animation: rgbEffect 1s linear infinite alternate;
-  background: #141415;
+  background: black;
 }
 #particles-js.hx-pjs:hover {
   cursor: crosshair !important;
@@ -64,14 +68,31 @@ div.hx-main button {
   transition: outline 0s background 0.5s;
   font-weight: bold;
 }
-div.hx-main button:hover {
+div.hx-main button:not(.hx-alt):hover {
   cursor: pointer;
   background: #5832d4;
+}
+div.hx-main button.hx-alt {
+  outline: 2px solid transparent;
 }
 div.hx-main button:active {
   transform: scaleY(0.98) translateY(2px);
 }
 div.hx-main button.hx-outline {
+  outline: 2px solid #5832d4;
+}
+div.hx-main button.hx-primary {
+  background: #5832d4;
+  margin-right: 1rem;
+}
+div.hx-main button.hx-primary:hover {
+  background: transparent;
+}
+div.hx-main button.hx-secondary {
+  border-bottom: 2px solid #5832d4;
+}
+div.hx-main button.hx-secondary:hover {
+  cursor: pointer;
   outline: 2px solid #5832d4;
 }
 div.hx-main a {
@@ -93,8 +114,14 @@ div.hx-main input {
   padding: 0.5rem;
   font-size: large;
   margin-top: 0.5rem;
-  background: rgba(54, 29, 105, 0.5607843137);
+  background: rgba(37, 36, 41, 0.5607843137);
   border-radius: 10px;
+}
+div.hx-main input.hx-red {
+  background: rgba(124, 20, 20, 0.5607843137);
+}
+div.hx-main input:focus {
+  outline: none;
 }
 div.hx-main input[type=checkbox]:hover {
   cursor: pointer;
@@ -105,7 +132,7 @@ div.hx-main input[type=checkbox]:hover {
     padding: 0;
   }
   div.hx-main h1.hx-huge {
-    font-size: 4rem;
+    font-size: 3rem;
   }
 }
 header.hx h1 {

@@ -21,6 +21,7 @@ def set_success(message: str):
 def index():
     return flask.render_template('base/templates/home.html')
 
+
 @base_bp.route('/register', methods=['GET', 'POST'])
 def register():
     if flask.request.method == 'POST':
@@ -82,14 +83,18 @@ def logout():
     return flask.redirect('/')
 
 @flask_login.login_required
-@base_bp.route('/delete')
+@base_bp.route('/delete', methods=['POST'])
 def delete():
     user = User.query.filter_by(id=flask_login.current_user.id).first()
-    db.session.delete(user)
-    db.session.commit()
+    
+    if werkzeug.security.check_password_hash(user.password, flask.request.form.get('password')):
+        db.session.delete(user)
+        db.session.commit()
 
-    return flask.redirect('/')
+        return flask.redirect('/?deleted=1')
+    else:
+        return flask.redirect('/chat?deletion-failed=1')
 
-@base_bp.route('/legal')
-def legal():
-    return flask.render_template('base/templates/legal.html')
+@base_bp.route('/about')
+def about():
+    return flask.render_template('base/templates/about.html')

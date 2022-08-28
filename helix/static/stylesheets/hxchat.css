@@ -57,6 +57,9 @@ div.hx-sidebar div.hx-user-profile {
   padding-top: 1rem;
   border-top: 2px solid rgba(168, 168, 168, 0.5568627451);
 }
+div.hx-sidebar div.hx-user-profile h1 {
+  margin-bottom: 0;
+}
 div.hx-sidebar div.hx-user-profile img {
   height: 50px;
   position: relative;
@@ -84,6 +87,45 @@ div.hx-sidebar div.hx-user-profile button:hover, div.hx-sidebar div.hx-user-prof
 div.hx-sidebar div.hx-user-profile div.hx-content:hover {
   cursor: pointer;
   opacity: 0.5;
+}
+div.hx-sidebar div.hx-profile-popup {
+  text-align: center;
+  background: #0f0f0f;
+  height: 100%;
+  width: 100%;
+  opacity: 1;
+  position: fixed;
+  height: 0;
+  z-index: 1200;
+  top: 0;
+  left: 0;
+  overflow-x: hidden;
+  transition: height 0.5s ease-out, opacity 0.5s;
+}
+div.hx-sidebar div.hx-profile-popup img {
+  border-radius: 50%;
+  height: 100px;
+}
+div.hx-sidebar div.hx-profile-popup img:hover {
+  cursor: pointer;
+  opacity: 0.7s;
+}
+div.hx-sidebar div.hx-profile-popup .hx-close-profile {
+  position: absolute;
+  left: 1rem;
+  top: 1rem;
+  font-size: 1.5rem;
+  padding: 0.5rem;
+  border-radius: 50%;
+  width: 2.5rem;
+  height: 2.5rem;
+}
+div.hx-sidebar div.hx-profile-popup .hx-close-profile:hover {
+  cursor: pointer;
+  background: #141415;
+}
+div.hx-sidebar div.hx-profile-popup .hx-close-profile:active {
+  opacity: 0.6;
 }
 
 div.hx-chat-top-bar {
@@ -127,10 +169,39 @@ div.hx-chat-top-bar:hover {
 }
 
 div.hx-chat-history {
+  background: #0f0f0f;
   margin-bottom: 2rem;
 }
 
 @media (max-width: 1200px) {
+  .hx-profile-tab {
+    display: inline-block !important;
+    opacity: 0.4;
+    text-decoration: none !important;
+  }
+  .hx-profile-tab:hover {
+    cursor: pointer;
+    opacity: 0.2;
+  }
+  div.hx-chatbox div.hx-input-box input {
+    width: 85vw;
+  }
+  .hx-close-room-chooser {
+    display: block;
+    position: absolute;
+    left: 0.2rem;
+    top: 0.2rem;
+    font-size: 1.5rem;
+    padding: 0.5rem;
+    border-radius: 50%;
+    width: 2.5rem;
+    height: 2.5rem;
+    z-index: 600;
+  }
+  .hx-close-room-chooser:hover {
+    cursor: pointer;
+    opacity: 0.6;
+  }
   div.hx-sidebar {
     top: 0;
     left: 0;
@@ -147,14 +218,16 @@ div.hx-chat-history {
   div.hx-chatbox {
     margin-left: 0 !important;
   }
-  html.hx > body {
-    padding: 0 !important;
-  }
-  div.hx-chat-history {
-    padding: 1rem;
-    margin-bottom: 3rem;
-  }
 }
+div.hx-chat-history {
+  padding: 1rem;
+  margin-bottom: 4rem;
+}
+
+html.hx > body.hx-chat {
+  padding: 0 !important;
+}
+
 div.hx-chatbox {
   height: 100%;
   margin-left: 30%;
@@ -171,6 +244,7 @@ div.hx-chatbox div.hx-message div.hx-content {
   min-width: -moz-min-content;
   min-width: min-content;
   max-width: 200px;
+  box-shadow: 5px 5px 20px rgba(0, 0, 0, 0.3803921569);
 }
 div.hx-chatbox div.hx-message div.hx-content div.hx-author {
   font-weight: bold;
@@ -270,6 +344,12 @@ div.hx-chatbox div.hx-input-box input:focus {
 }
 
 @media (min-width: 1200px) {
+  div.hx-sidebar {
+    padding: 3rem;
+  }
+  div.hx-user-profile {
+    margin: 3rem;
+  }
   div.hx-chat-top-bar i.hx-chat-menu {
     display: none;
   }
@@ -281,27 +361,6 @@ div.hx-chatbox div.hx-input-box input:focus {
   display: none;
 }
 
-@media (max-width: 1200px) {
-  div.hx-chatbox div.hx-input-box input {
-    width: 85vw;
-  }
-  .hx-close-room-chooser {
-    display: block;
-    position: absolute;
-    left: 0.2rem;
-    top: 0.2rem;
-    font-size: 1.5rem;
-    padding: 0.5rem;
-    border-radius: 50%;
-    width: 2.5rem;
-    height: 2.5rem;
-    z-index: 600;
-  }
-  .hx-close-room-chooser:hover {
-    cursor: pointer;
-    opacity: 0.6;
-  }
-}
 @media (max-width: 700px) {
   div.hx-chatbox div.hx-input-box input {
     width: 75vw;
@@ -347,16 +406,63 @@ div.hx-room-details-popup .hx-close-room-details:hover {
 div.hx-room-details-popup .hx-close-room-details:active {
   opacity: 0.6;
 }
-div.hx-room-details-popup button.hx-room-action {
+
+button.hx-action-button {
   border-radius: 10px !important;
 }
-div.hx-room-details-popup button.hx-room-action i {
+button.hx-action-button i {
   margin-right: 5px;
 }
-div.hx-room-details-popup button.hx-room-action.hx-red:hover {
+button.hx-action-button.hx-yellow:hover {
+  background: #bb5202;
+}
+button.hx-action-button.hx-red:hover {
   background: #df2a19;
 }
 
 span.hx-text-light {
   opacity: 0.6;
+}
+
+@-webkit-keyframes breathingAlert {
+  from {
+    border-bottom: 2px solid transparent;
+  }
+  to {
+    border-bottom: 2px solid rgba(168, 168, 168, 0.5568627451);
+  }
+}
+
+@keyframes breathingAlert {
+  from {
+    border-bottom: 2px solid transparent;
+  }
+  to {
+    border-bottom: 2px solid rgba(168, 168, 168, 0.5568627451);
+  }
+}
+div.hx-floating-alert {
+  top: 1rem;
+  left: 1rem;
+  z-index: 9000;
+  position: fixed;
+  max-width: 300px;
+  background: rgba(24, 23, 25, 0.8745098039) !important;
+  box-shadow: 0 0 15px black;
+  -webkit-backdrop-filter: blur(3px);
+          backdrop-filter: blur(3px);
+  -webkit-animation: breathingAlert 1s linear infinite alternate;
+          animation: breathingAlert 1s linear infinite alternate;
+}
+div.hx-floating-alert i.hx-close {
+  display: inherit;
+}
+
+div.hx-deletion-warning {
+  opacity: 0;
+  height: 0;
+}
+
+.hx-profile-tab {
+  display: none;
 }/*# sourceMappingURL=hxchat.css.map */
