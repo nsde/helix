@@ -7,12 +7,12 @@
 
     <div class="hx-main">
         <div class="hx-form">
-            <h1>Create a new account</h1>
-            <p>Already have an account? <a href="/login">Log in</a></p>
+            <h1>Log into your account</h1>
+            <p>Don't have an account? <a href="/register">Register for free</a></p>
             <br>
-
-            {% include "components/flasher.html" %} 
-
+       
+            {% include "components/flasher.html" %}
+            
             <form method="POST">
                 <div class="hx-group">
                     <label for="username">Username</label>
@@ -28,6 +28,7 @@
                 <div class="hx-group">
                     <label for="password">
                         Password
+                        <a id="password-reset" href="/login/password-reset">Forgotten?</a>
                     </label>
                     <input
                         type="password"
@@ -36,15 +37,8 @@
                         placeholder="•••••••••••"
                     />
                 </div>
-
-                <p>
-                    <input type="checkbox" id="agree-legal" name="agree-legal" value="true" required>
-                    I have read and agree to the <a href="/legal" target="_blank">terms of service</a>
-                    and <a href="/legal" target="_blank">privacy policy</a>.
-                </p>
-
                 <button type="submit" class="hx-primary hx-outline hx-wide">
-                    Create a new account
+                    Login
                 </button>
             </form>
         </div>

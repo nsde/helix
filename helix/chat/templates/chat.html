@@ -1,0 +1,200 @@
+{% with title="Home" %}
+    {% include "components/top.html" %}
+{% endwith %}
+
+<script src="/static/js/emoji_keyboard.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js/dist/fuse.js"></script>
+
+<link rel="stylesheet" href="/static/js/emoji_keyboard.css">
+
+<body onload="window.scrollTo(0, document.body.scrollHeight);">
+    <div class="hx-main hx-chat-layout">
+        <div class="hx-sidebar" id="room-chooser">
+            <i class="bi bi-chevron-left hx-close-room-chooser" onclick="closeRoomChooser();" id="room-chooser-close"></i>
+            <h1>Rooms</h1>
+
+            <div class="hx-sidebar-content">
+                {% for room in rooms %}
+                <a href="/{{ room.id }}" class="hx-button">
+                    <div class="hx-item {{ 'hx-active' if room.is_active else '' }}">
+                        <img src="{{ room.avatar }}">
+                        <span>{{ room.name }}</span>
+                    </div>
+                </a>
+                {% endfor %}
+            </div>
+
+            <div class="hx-user-profile" id="user-profile">
+                <div class="hx-content">
+                    <img src="{{ rooms[0].avatar }}">
+                    <span>LoremIpsus</span>
+                </div>
+            </div>
+        </div>
+        <div class="hx-chatbox" id="chat-box">
+            <div class="hx-chat-top-bar" onclick="openRoomDetails();">
+                <img src="{{ rooms[0].avatar }}">
+                <h1>Baz</h1>
+                
+                <div class="hx-chat-menu" onclick="openRoomChooser();">
+                    <i class="bi bi-list"></i>
+                </div>
+            </div>
+            <div class="hx-room-details-popup" id="room-details-popup">
+                <i class="bi bi-chevron-left hx-close-room-details" onclick="closeRoomDetails();" id="room-details-close"></i>
+                <br>
+                <img src="{{ rooms[0].avatar }}">
+                <h1>Baz</h1>
+                <p>User ID: <span class="hx-text-light">12234</span></p>
+                <a href="">
+                    <button class="hx-room-remove">
+                        <i class="bi bi-person-dash"></i>
+                        Remove
+                    </button>
+                </a>
+            </div>
+            <div class="hx-chat-history">
+                <div class="hx-message hx-foreign">
+                    <div class="hx-content">
+                        Dude, look at this photo I totally indeed took and surely didn't copy from the interwebz:
+                        <span class="hx-time">9:46 PM</span>
+                    </div>
+                </div>
+                <div class="hx-message hx-foreign">
+                    <div class="hx-content">
+                        <img src="https://cdn.pixabay.com/photo/2022/08/19/01/06/ferris-wheel-7395944_960_720.jpg">
+                        <span class="hx-time">9:46 PM</span>
+                    </div>
+                </div>
+                <div class="hx-message hx-own">
+                    <div class="hx-content">
+                        yoo
+                        <span class="hx-time">9:57 PM</span>
+                    </div>
+                </div>
+                <div class="hx-message hx-foreign">
+                    <div class="hx-content">
+                        😎
+                        <span class="hx-time">9:46 PM</span>
+                    </div>
+                </div>
+                <div class="hx-message hx-own">
+                    <div class="hx-content">
+                        Wat da dog doin
+                        <span class="hx-time">9:56 PM</span>
+                    </div>
+                </div>
+                <div class="hx-message hx-own">
+                    <div class="hx-content">
+                        ??
+                        <span class="hx-time">9:57 PM</span>
+                    </div>
+                </div>
+                <div class="hx-message hx-day">
+                    Today
+                </div>           
+                <div class="hx-message hx-foreign">
+                    <div class="hx-content">
+                        Wassup
+                        <span class="hx-time">9:46 PM</span>
+                    </div>
+                </div>
+                <div class="hx-message hx-own">
+                    <div class="hx-content">
+                        Wat da dog doin
+                        <span class="hx-time">9:56 PM</span>
+                    </div>
+                </div>
+                <div class="hx-message hx-own">
+                    <div class="hx-content">
+                        I saw wat da dog was doin o.O
+                        <span class="hx-time">9:57 PM</span>
+                    </div>
+                </div>
+                <div class="hx-message hx-foreign">
+                    <div class="hx-content">
+                        rip
+                        <span class="hx-time">9:46 PM</span>
+                    </div>
+                </div>
+                <div class="hx-message hx-system">
+                    <i class="bi bi-arrow-left hx-leave"></i>
+                    Baz left the group
+                </div> 
+                <div class="hx-message hx-system">
+                    <i class="bi bi-arrow-right hx-join"></i>
+                    Baz joined the group
+                </div> 
+                <div class="hx-message hx-own">
+                    <div class="hx-content">
+                        welcome back
+                        <span class="hx-time">9:56 PM</span>
+                    </div>
+                </div>
+                <div class="hx-message hx-own">
+                    <div class="hx-content">
+                        :)
+                        <span class="hx-time">9:57 PM</span>
+                        <i class="bi bi-check2-all hx-read"></i>
+                    </div>
+                </div>    
+            </div>
+            <div class="hx-input-box">
+                <div class="hx-emoji-selection" id="emoji-picker">
+                    <img src="https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/120/twitter/322/grinning-face-with-big-eyes_1f603.png">
+                </div>
+                <div class="message-input"> 
+                    <input type="text" id="message-input" placeholder="Message" autofocus>
+                </div>
+            </div>
+            <script>
+                const zone = document.getElementById("message-input");
+                var emojiKeyboard = new EmojiKeyboard;
+                emojiKeyboard.callback = (emoji, closed) => {
+                    zone.value = zone.value + emoji.emoji;
+                };
+                emojiKeyboard.resizable = true;
+                emojiKeyboard.default_placeholder = "Search Emojis...";
+                emojiKeyboard.instantiate(document.getElementById("emoji-picker"))
+            </script>
+        </div>
+    </div>
+</body>
+<script>
+    var popUp = document.getElementById("room-details-popup").style
+    var menuChooser = document.getElementById("room-chooser").style
+    var chat = document.getElementById("chat-box").style
+    var userProfile = document.getElementById("user-profile").style
+    
+    function openRoomDetails() {
+        popUp.height = "100%";
+        popUp.opacity = "1";
+    }
+    
+    function closeRoomDetails() {
+        popUp.height = "0%";
+        popUp.opacity = "0";
+    }
+
+    function openRoomChooser() {
+        //popUp.display = "none";
+        chat.display = "none";
+        userProfile.display = "none";
+        event.stopPropagation();
+        menuChooser.width = "100%";
+        menuChooser.opacity = "1";
+    }
+    
+    function closeRoomChooser() {
+        menuChooser.width = "0%";
+        menuChooser.opacity = "0";
+        userProfile.display = "inherit";
+        chat.display = "inherit";
+    }
+
+</script>
+    
+{% with hide_footer=true %}
+    {% include "components/end.html" %}
+{% endwith %}

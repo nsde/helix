@@ -56,3 +56,19 @@ div.hx-form
 @media (max-width: 800px)
     form.hx-form-container
         width: 100%
+
+div.hx-alert
+    width: max-content
+    padding: 1rem
+    background: $bg-alert
+    // margin-top: 1rem
+    text-align: left
+    border-left: 3px solid transparent
+    margin-bottom: 1rem
+    // border-radius: 10px
+    
+    &.hx-danger
+        border-left-color: $danger
+
+    &.hx-success
+        border-left-color: $success

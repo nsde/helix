@@ -1,0 +1,15 @@
+{% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+        {% for category, message in messages %}
+            {% if category == 'error' %}
+                <div class="hx-alert hx-danger">
+                    {{ message }}
+                </div>
+            {% else %}
+                <div class="hx-alert hx-success">
+                    {{ message }}
+                </div>
+            {% endif %}
+        {% endfor %}
+    {% endif %}
+{% endwith %}

@@ -17,7 +17,10 @@
         "helix/static/stylesheets/helium.css": true,
         "helix/static/stylesheets/helium.css.map": true,
         "helix/static/stylesheets/hxforms.css.map": true,
-        "helix/static/stylesheets/hxforms.css": true
+        "helix/static/stylesheets/hxforms.css": true,
+        "helix/static/stylesheets/hxchat.css": true,
+        "helix/static/stylesheets/hxchat.css.map": true,
+        "helix/chat/__pycache__": true
     },
     "hide-files.files": [
         "helix/static/helix.css",
@@ -31,6 +34,9 @@
         "helix/static/stylesheets/helium.css",
         "helix/static/stylesheets/helium.css.map",
         "helix/static/stylesheets/hxforms.css.map",
-        "helix/static/stylesheets/hxforms.css"
+        "helix/static/stylesheets/hxforms.css",
+        "helix/static/stylesheets/hxchat.css",
+        "helix/static/stylesheets/hxchat.css.map",
+        "helix/chat/__pycache__"
     ]
 }

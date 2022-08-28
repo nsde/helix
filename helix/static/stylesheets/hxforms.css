@@ -1,1 +1,75 @@
-div.hx-form{width:400px;margin:0 auto;text-align:center}div.hx-form h1{margin-top:0}div.hx-form label{margin-top:.5rem;text-align:left;display:inline-block}div.hx-form button,div.hx-form input{font-size:larger}div.hx-form button:not([type=checkbox]):focus,div.hx-form input:not([type=checkbox]):focus{outline:none}div.hx-form button.hx-secondary,div.hx-form input.hx-secondary{background:#8d5def}div.hx-form button.hx-tertiary,div.hx-form input.hx-tertiary{background:none;border:1px solid #fff}div.hx-form button.hx-tertiary:hover,div.hx-form input.hx-tertiary:hover{border:1px solid rgba(0,0,0,0);background:#6c25f9}div.hx-form button{border-radius:10px;font-weight:normal;margin-top:1rem;font-variant-caps:titling-caps}div.hx-form a{color:#b28ff7;text-decoration:none}div.hx-form a:hover{text-decoration:underline}div.hx-form a.hx-password-reset{margin-left:60%}div.hx-form *:not([type=checkbox]){width:100%}div.hx-form input[type=checkbox]{transform:scale(1.4);filter:hue-rotate(60deg)}@media(max-width: 800px){form.hx-form-container{width:100%}}/*# sourceMappingURL=hxforms.css.map */
+div.hx-form {
+  width: 400px;
+  margin: 0 auto;
+  text-align: center;
+}
+div.hx-form h1 {
+  margin-top: 0;
+}
+div.hx-form label {
+  margin-top: 0.5rem;
+  text-align: left;
+  display: inline-block;
+}
+div.hx-form button, div.hx-form input {
+  font-size: larger;
+}
+div.hx-form button:not([type=checkbox]):focus, div.hx-form input:not([type=checkbox]):focus {
+  outline: none;
+}
+div.hx-form button.hx-secondary, div.hx-form input.hx-secondary {
+  background: #4b1ca9;
+}
+div.hx-form button.hx-tertiary, div.hx-form input.hx-tertiary {
+  background: none;
+  border: 1px solid #ffffff;
+}
+div.hx-form button.hx-tertiary:hover, div.hx-form input.hx-tertiary:hover {
+  border: 1px solid transparent;
+  background: #6c25f9;
+}
+div.hx-form button {
+  border-radius: 10px;
+  font-weight: normal;
+  margin-top: 1rem;
+  font-variant-caps: titling-caps;
+}
+div.hx-form a {
+  color: #b28ff7;
+  text-decoration: none;
+}
+div.hx-form a:hover {
+  text-decoration: underline;
+}
+div.hx-form a.hx-password-reset {
+  margin-left: 60%;
+}
+div.hx-form *:not([type=checkbox]) {
+  width: 100%;
+}
+div.hx-form input[type=checkbox] {
+  transform: scale(1.4);
+  filter: hue-rotate(60deg);
+}
+
+@media (max-width: 800px) {
+  form.hx-form-container {
+    width: 100%;
+  }
+}
+div.hx-alert {
+  width: -webkit-max-content;
+  width: -moz-max-content;
+  width: max-content;
+  padding: 1rem;
+  background: rgba(255, 255, 255, 0.0156862745);
+  text-align: left;
+  border-left: 3px solid transparent;
+  margin-bottom: 1rem;
+}
+div.hx-alert.hx-danger {
+  border-left-color: #df2a19;
+}
+div.hx-alert.hx-success {
+  border-left-color: #18b718;
+}/*# sourceMappingURL=hxforms.css.map */
