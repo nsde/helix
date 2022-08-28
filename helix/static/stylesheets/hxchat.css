@@ -41,6 +41,13 @@ div.hx-sidebar div.hx-sidebar-content div.hx-item:hover {
 div.hx-sidebar div.hx-sidebar-content div.hx-item.hx-active {
   background: rgba(106, 106, 106, 0.1411764706);
 }
+div.hx-sidebar div.hx-sidebar-content div.hx-item.hx-plus {
+  opacity: 0.5;
+  border: 3px dotted rgba(168, 168, 168, 0.5568627451);
+}
+div.hx-sidebar div.hx-sidebar-content div.hx-item.hx-plus:hover {
+  opacity: 0.8;
+}
 div.hx-sidebar div.hx-user-profile {
   position: absolute;
   bottom: -3rem;
@@ -56,6 +63,23 @@ div.hx-sidebar div.hx-user-profile img {
   top: 1rem;
   border-radius: 50%;
   margin-right: 0.5rem;
+  border: 2px solid rgba(168, 168, 168, 0.5568627451);
+}
+div.hx-sidebar div.hx-user-profile span {
+  font-weight: bold;
+}
+div.hx-sidebar div.hx-user-profile button {
+  font-size: small;
+  padding: 0.5rem;
+}
+div.hx-sidebar div.hx-user-profile button, div.hx-sidebar div.hx-user-profile button i {
+  color: #df2a19;
+}
+div.hx-sidebar div.hx-user-profile button:hover {
+  background: #df2a19;
+}
+div.hx-sidebar div.hx-user-profile button:hover, div.hx-sidebar div.hx-user-profile button:hover i {
+  color: #ffffff;
 }
 div.hx-sidebar div.hx-user-profile div.hx-content:hover {
   cursor: pointer;
@@ -76,6 +100,7 @@ div.hx-chat-top-bar img {
   height: 50px;
   position: relative;
   top: 10px;
+  margin-right: 5px;
 }
 div.hx-chat-top-bar h1 {
   margin: 0;
@@ -105,20 +130,15 @@ div.hx-chat-history {
   margin-bottom: 2rem;
 }
 
-.hx-close-room-chooser {
-  display: none;
-}
-
 @media (max-width: 1200px) {
   div.hx-sidebar {
     top: 0;
     left: 0;
     z-index: 500;
-    width: 0;
     background: #141415;
     padding: 3rem;
-    height: 90%;
-    transition: width 1s;
+    width: 40%;
+    transition: width 1s ease-in-out;
     opacity: 0;
   }
   div.hx-sidebar div.hx-sidebar-content {
@@ -151,6 +171,14 @@ div.hx-chatbox div.hx-message div.hx-content {
   min-width: -moz-min-content;
   min-width: min-content;
   max-width: 200px;
+}
+div.hx-chatbox div.hx-message div.hx-content div.hx-author {
+  font-weight: bold;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+  color: #8663f9;
 }
 div.hx-chatbox div.hx-message div.hx-content img {
   max-width: 80vw;
@@ -249,6 +277,10 @@ div.hx-chatbox div.hx-input-box input:focus {
     display: none;
   }
 }
+.hx-close-room-chooser {
+  display: none;
+}
+
 @media (max-width: 1200px) {
   div.hx-chatbox div.hx-input-box input {
     width: 85vw;
@@ -287,7 +319,7 @@ div.hx-room-details-popup {
   top: 0;
   left: 0;
   overflow-x: hidden;
-  transition: height 0.5s, opacity 0.5s;
+  transition: height 0.5s ease-out, opacity 0.5s;
 }
 div.hx-room-details-popup img {
   margin-top: 3rem;
@@ -314,6 +346,15 @@ div.hx-room-details-popup .hx-close-room-details:hover {
 }
 div.hx-room-details-popup .hx-close-room-details:active {
   opacity: 0.6;
+}
+div.hx-room-details-popup button.hx-room-action {
+  border-radius: 10px !important;
+}
+div.hx-room-details-popup button.hx-room-action i {
+  margin-right: 5px;
+}
+div.hx-room-details-popup button.hx-room-action.hx-red:hover {
+  background: #df2a19;
 }
 
 span.hx-text-light {

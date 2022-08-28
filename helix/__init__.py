@@ -38,6 +38,7 @@ def create_app():
     create_database(app)
 
     login_manager = flask_login.LoginManager()
+    login_manager.session_protection = 'strong'
     login_manager.login_view = 'base.login'
     login_manager.init_app(app)
 

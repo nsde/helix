@@ -42,6 +42,13 @@ div.hx-sidebar
             &.hx-active
                 background: $bg-light
 
+            &.hx-plus
+                opacity: 0.5
+                border: 3px dotted $fg-grey
+
+                &:hover
+                    opacity: 0.8
+
     div.hx-user-profile
         position: absolute
         bottom: -3rem
@@ -57,6 +64,23 @@ div.hx-sidebar
             top: 1rem
             border-radius: 50%
             margin-right: .5rem
+            border: 2px solid $fg-grey
+            // box-shadow: 0 0 5px $success
+
+        span
+            font-weight: bold
+
+        button
+            &, i
+                color: $danger
+            
+            font-size: small
+            padding: 0.5rem
+
+            &:hover
+                &, i
+                    color: $fg
+                background: $danger
 
         div.hx-content:hover
             cursor: pointer
@@ -76,6 +100,7 @@ div.hx-chat-top-bar
         height: 50px
         position: relative
         top: 10px
+        margin-right: 5px
 
     h1
         margin: 0
@@ -103,21 +128,17 @@ div.hx-chat-top-bar
 div.hx-chat-history
     margin-bottom: 2rem
 
-.hx-close-room-chooser
-    display: none
-
 @media (max-width: 1200px)
     div.hx-sidebar
         // position: sticky
         top: 0
         left: 0
         z-index: 500
-        width: 0
         background: $bg
         padding: 3rem
-        height: 90%
+        width: 40%
 
-        transition: width 1s
+        transition: width 1s ease-in-out
         opacity: 0
 
         div.hx-sidebar-content
@@ -148,6 +169,11 @@ div.hx-chatbox
             min-width: min-content
             max-width: 200px
             // margin-bottom: 1rem
+
+            div.hx-author
+                font-weight: bold
+                user-select: none
+                color: $accent-text
 
             img
                 max-width: 80vw
@@ -239,6 +265,9 @@ div.hx-chatbox
     .hx-chat-menu
         display: none
 
+.hx-close-room-chooser
+    display: none
+
 @media (max-width: 1200px)
     div.hx-chatbox div.hx-input-box input
         width: 85vw
@@ -277,7 +306,7 @@ div.hx-room-details-popup
     top: 0
     left: 0
     overflow-x: hidden
-    transition: height .5s, opacity .5s
+    transition: height .5s ease-out, opacity .5s
 
     img
         margin-top: 3rem
@@ -304,6 +333,15 @@ div.hx-room-details-popup
 
         &:active
             opacity: 0.6
+
+    button.hx-room-action
+        border-radius: 10px !important
+
+        i
+            margin-right: 5px
+
+        &.hx-red:hover
+            background: $danger
 
 span.hx-text-light
     opacity: 0.6

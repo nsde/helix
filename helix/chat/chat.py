@@ -1,5 +1,6 @@
 import flask
 import flask_sse
+import flask_login
 
 chat_bp = flask.Blueprint('chat_bp',
     __name__,
@@ -12,39 +13,11 @@ DEMO_ROOMS = [
         'avatar': 'https://avatars.githubusercontent.com/u/67185896?v=4',
         'id': '2938989487',
         'is_active': True
-    },
-    {
-        'name': 'FooBar',
-        'avatar': 'https://github.com/nsde/strobe/raw/master/logo.png',
-        'id': '1029380219',
-        'is_active': False
-    },
-    {
-        'name': 'FooBar',
-        'avatar': 'https://github.com/nsde/strobe/raw/master/logo.png',
-        'id': '1029380219',
-        'is_active': False
-    },
-    {
-        'name': 'FooBar',
-        'avatar': 'https://github.com/nsde/strobe/raw/master/logo.png',
-        'id': '1029380219',
-        'is_active': False
-    },
-    {
-        'name': 'FooBar',
-        'avatar': 'https://github.com/nsde/strobe/raw/master/logo.png',
-        'id': '1029380219',
-        'is_active': False
-    },
-    {
-        'name': 'FooBar',
-        'avatar': 'https://github.com/nsde/strobe/raw/master/logo.png',
-        'id': '1029380219',
-        'is_active': False
     }
 ]
 
+@flask_login.login_required
 @chat_bp.route('/chat')
 def chat():
-    return flask.render_template('chat/templates/chat.html', rooms=DEMO_ROOMS)
+    # return str(flask_login.current_user.is_authenticated)
+    return flask.render_template('chat/templates/chat.html', rooms=DEMO_ROOMS, avatar='https://github.com/nsde/strobe/raw/master/logo.png', username='Wolf')

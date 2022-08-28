@@ -52,7 +52,7 @@ def register():
             flask_login.login_user(user, remember=True)
             set_success('Account created!')
 
-            return flask.redirect('/')
+            return flask.redirect('/chat')
 
     return flask.render_template('base/templates/register.html')
 
@@ -67,13 +67,28 @@ def login():
             if werkzeug.security.check_password_hash(user.password, password):
                 set_success('Logged in successfully!')
                 flask_login.login_user(user, remember=True)
-                return flask.redirect('/')
+                return flask.redirect('/chat')
             else:
                 set_error('Incorrect password, try again.')
         else:
             set_error('User does not exist.')
 
     return flask.render_template('base/templates/login.html')
+
+@flask_login.login_required
+@base_bp.route('/logout')
+def logout():
+    flask_login.logout_user()
+    return flask.redirect('/')
+
+@flask_login.login_required
+@base_bp.route('/delete')
+def delete():
+    user = User.query.filter_by(id=flask_login.current_user.id).first()
+    db.session.delete(user)
+    db.session.commit()
+
+    return flask.redirect('/')
 
 @base_bp.route('/legal')
 def legal():
