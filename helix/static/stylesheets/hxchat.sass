@@ -6,8 +6,8 @@ a.hx-button
 div.hx-sidebar
     width: 20%
     height: 80%
-    position: fixed
     z-index: 1
+    position: fixed
 
     h1
         margin-top: 0
@@ -24,10 +24,13 @@ div.hx-sidebar
             border-radius: 10px
             margin-bottom: 0.5rem
 
-            img
+            img, svg
                 height: 50px
                 width: 50px
                 border-radius: 50%
+            
+            svg
+                border-radius: 0
             
             span
                 padding: 1rem
@@ -128,7 +131,6 @@ div.hx-sidebar
             &:active
                 opacity: 0.6
 
-
 div.hx-chat-top-bar
     position: sticky
     top: 0
@@ -172,15 +174,20 @@ div.hx-chat-history
     background: $bg-dim
     margin-bottom: 2rem
 
+.hx-alt-tab
+    opacity: 0.4
+    text-decoration: none !important
+
+    &:hover
+        cursor: pointer
+        opacity: 0.2
+
 @media (max-width: 1200px)
+    div.hx-sidebar
+        display: none
+
     .hx-profile-tab
         display: inline-block !important
-        opacity: 0.4
-        text-decoration: none !important
-
-        &:hover
-            cursor: pointer
-            opacity: 0.2
 
     div.hx-chatbox div.hx-input-box input
         width: 85vw
@@ -202,23 +209,20 @@ div.hx-chat-history
             opacity: 0.6
 
     div.hx-sidebar
-        // position: sticky
         top: 0
         left: 0
+        width: 60%
+        opacity: 0
+        padding: 3rem
         z-index: 500
         background: $bg
-        padding: 3rem
-        width: 40%
-
         transition: width 1s ease-in-out
-        opacity: 0
 
         div.hx-sidebar-content
             width: 80%
 
     div.hx-chatbox
         margin-left: 0 !important
-
 
 div.hx-chat-history
     padding: 1rem
@@ -238,11 +242,10 @@ div.hx-chatbox
 
         div.hx-content
             padding: 1rem
-            border-radius: 10px
             min-width: min-content
             max-width: 200px
             box-shadow: 5px 5px 20px $bg-shadow
-            // margin-bottom: 1rem
+            border-radius: 10px
 
             div.hx-author
                 font-weight: bold
@@ -259,9 +262,7 @@ div.hx-chatbox
                 display: inline-block
                 user-select: none
                 font-size: .7rem
-                // float: right
                 position: relative
-                // top: 1.5rem
 
         &.hx-foreign div.hx-content
             background: $bg-light
@@ -336,6 +337,7 @@ div.hx-chatbox
         padding: 3rem
 
     div.hx-user-profile
+        // display: none
         margin: 3rem
 
     div.hx-chat-top-bar
@@ -348,23 +350,24 @@ div.hx-chatbox
 .hx-close-room-chooser
     display: none
 
-@media (max-width: 700px)
+@media (max-width: 1200px)
+    div.hx-chatbox div.hx-input-box input
+        width: 95vw
+
+    @media (max-width: 700px)
     div.hx-chatbox div.hx-input-box input
         width: 75vw
 
 div.hx-room-details-popup
-    // padding-top: 3rem
-    text-align: center
-    // display: none
-    background: $bg-dim
-    height: 100%
-    width: 100%
-    opacity: 1
-    position: fixed
-    height: 0
-    z-index: 1200
     top: 0
     left: 0
+    width: 100%
+    height: 0
+    z-index: 1200
+    opacity: 1
+    position: fixed
+    text-align: center
+    background: $bg-dim
     overflow-x: hidden
     transition: height .5s ease-out, opacity .5s
 
@@ -401,10 +404,10 @@ button.hx-action-button
         margin-right: 5px
 
     &.hx-yellow:hover
-        background: $warn
+        background: $warn !important
 
     &.hx-red:hover
-        background: $danger
+        background: $danger !important
 
 span.hx-text-light
     opacity: 0.6
@@ -436,3 +439,37 @@ div.hx-deletion-warning
 
 .hx-profile-tab
     display: none
+
+div.hx-new-popup
+    div.hx-content
+        top: 0
+        left: 0
+        width: 100%
+        height: 0
+        z-index: 1800
+        opacity: 1
+        position: fixed
+        text-align: center
+        background: $bg-dim
+        overflow-x: hidden
+        transition: height .5s ease-out, opacity .5s
+
+        input
+            font-size: larger
+
+    .hx-close-new
+        top: 1rem
+        left: 1rem
+        width: 2.5rem
+        height: 2.5rem
+        padding: .5rem
+        position: absolute
+        font-size: 1.5rem
+        border-radius: 50%
+
+        &:hover
+            cursor: pointer
+            background: $bg
+
+        &:active
+            opacity: 0.6

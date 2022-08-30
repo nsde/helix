@@ -74,7 +74,7 @@ class EmojiKeyboard {
             else
                 return;
         }
-        // kb.classList.toggle('emojikb-hidden');
+        kb.classList.toggle('emojikb-hidden');
     }
 
     add_emojis(emojis) {
@@ -238,8 +238,19 @@ class EmojiKeyboard {
         const dom_parser = new DOMParser();
         const parse_svg = (x) => dom_parser.parseFromString(x, "text/xml").firstChild;
         let main_div = document.createElement("div");
+
         main_div.id = "emojikb-maindiv";
         main_div.style.width = '500px';
+
+        document.onkeydown = function(e) {
+            if (e.code == 'Escape') {
+                if (!main_div.classList.contains('emojikb-hidden')) {
+                    main_div.classList.toggle('emojikb-hidden');
+                    document.getElementById('message-input').focus();
+                }
+            }
+        }    
+
         if (this.resizable) {
             main_div.classList.add('resizable');
             main_div.dataset.m_pos = 0;
@@ -254,6 +265,7 @@ class EmojiKeyboard {
                 document.removeEventListener("mousemove", f, false);
             }, false);
         }
+
         // search div
         let search_div = document.createElement("div");
         search_div.id = "emojikb-searchdiv";
@@ -293,35 +305,43 @@ class EmojiKeyboard {
             elem.dataset['emojikb_categ'] = v[1];
             elem.addEventListener('click', e => this.click_on_category(this, e));
             list_div.appendChild(elem);
+
             // emojis grid
             let categ_div = document.createElement("div");
             categ_div.className = "emojikb-categ";
             let categ_name = document.createElement("div");
             categ_name.className = "emojikb-categname";
             categ_name.dataset['emojikb_categ'] = v[1];
+
             if (this.stickyObserver) {
                 this.stickyObserver.observe(categ_name);
             }
+
             let categ_span = document.createElement("span");
             categ_span.innerText = v[1];
             categ_name.appendChild(parse_svg(v[0]));
             categ_name.appendChild(categ_span);
             categ_div.appendChild(categ_name);
+
             for (const emoji of this.emojis.get(v[1]).sort((a, b) => a.unicode.localeCompare(b.unicode))) {
                 let img = document.createElement("img");
+
                 img.dataset.name = emoji.name;
                 img.dataset.unicode = emoji.unicode;
                 img.dataset.emoji = emoji.emoji;
                 img.dataset.category = v[1];
                 img.className = "emojikb-emoji";
                 first_emoji = first_emoji || emoji;
+
                 if (this.lazyImageObserver) {
                     this.lazyImageObserver.observe(img);
                     img.dataset.src = emoji.url;
                     img.classList.add('lazy');
+
                 } else {
                     img.src = emoji.url;
                 }
+
                 img.addEventListener('error', err => {
                     // console.info(err.target.dataset);
                     const data = err.target.dataset;

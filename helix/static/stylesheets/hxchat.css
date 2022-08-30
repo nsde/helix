@@ -5,8 +5,8 @@ a.hx-button {
 div.hx-sidebar {
   width: 20%;
   height: 80%;
-  position: fixed;
   z-index: 1;
+  position: fixed;
 }
 div.hx-sidebar h1 {
   margin-top: 0;
@@ -23,10 +23,13 @@ div.hx-sidebar div.hx-sidebar-content div.hx-item {
   border-radius: 10px;
   margin-bottom: 0.5rem;
 }
-div.hx-sidebar div.hx-sidebar-content div.hx-item img {
+div.hx-sidebar div.hx-sidebar-content div.hx-item img, div.hx-sidebar div.hx-sidebar-content div.hx-item svg {
   height: 50px;
   width: 50px;
   border-radius: 50%;
+}
+div.hx-sidebar div.hx-sidebar-content div.hx-item svg {
+  border-radius: 0;
 }
 div.hx-sidebar div.hx-sidebar-content div.hx-item span {
   padding: 1rem;
@@ -173,15 +176,21 @@ div.hx-chat-history {
   margin-bottom: 2rem;
 }
 
+.hx-alt-tab {
+  opacity: 0.4;
+  text-decoration: none !important;
+}
+.hx-alt-tab:hover {
+  cursor: pointer;
+  opacity: 0.2;
+}
+
 @media (max-width: 1200px) {
+  div.hx-sidebar {
+    display: none;
+  }
   .hx-profile-tab {
     display: inline-block !important;
-    opacity: 0.4;
-    text-decoration: none !important;
-  }
-  .hx-profile-tab:hover {
-    cursor: pointer;
-    opacity: 0.2;
   }
   div.hx-chatbox div.hx-input-box input {
     width: 85vw;
@@ -205,12 +214,12 @@ div.hx-chat-history {
   div.hx-sidebar {
     top: 0;
     left: 0;
+    width: 60%;
+    opacity: 0;
+    padding: 3rem;
     z-index: 500;
     background: #141415;
-    padding: 3rem;
-    width: 40%;
     transition: width 1s ease-in-out;
-    opacity: 0;
   }
   div.hx-sidebar div.hx-sidebar-content {
     width: 80%;
@@ -239,12 +248,12 @@ div.hx-chatbox div.hx-message {
 }
 div.hx-chatbox div.hx-message div.hx-content {
   padding: 1rem;
-  border-radius: 10px;
   min-width: -webkit-min-content;
   min-width: -moz-min-content;
   min-width: min-content;
   max-width: 200px;
   box-shadow: 5px 5px 20px rgba(0, 0, 0, 0.3803921569);
+  border-radius: 10px;
 }
 div.hx-chatbox div.hx-message div.hx-content div.hx-author {
   font-weight: bold;
@@ -361,22 +370,24 @@ div.hx-chatbox div.hx-input-box input:focus {
   display: none;
 }
 
-@media (max-width: 700px) {
+@media (max-width: 1200px) {
+  div.hx-chatbox div.hx-input-box input {
+    width: 95vw;
+  }
   div.hx-chatbox div.hx-input-box input {
     width: 75vw;
   }
 }
 div.hx-room-details-popup {
-  text-align: center;
-  background: #0f0f0f;
-  height: 100%;
-  width: 100%;
-  opacity: 1;
-  position: fixed;
-  height: 0;
-  z-index: 1200;
   top: 0;
   left: 0;
+  width: 100%;
+  height: 0;
+  z-index: 1200;
+  opacity: 1;
+  position: fixed;
+  text-align: center;
+  background: #0f0f0f;
   overflow-x: hidden;
   transition: height 0.5s ease-out, opacity 0.5s;
 }
@@ -414,10 +425,10 @@ button.hx-action-button i {
   margin-right: 5px;
 }
 button.hx-action-button.hx-yellow:hover {
-  background: #bb5202;
+  background: #bb5202 !important;
 }
 button.hx-action-button.hx-red:hover {
-  background: #df2a19;
+  background: #df2a19 !important;
 }
 
 span.hx-text-light {
@@ -465,4 +476,38 @@ div.hx-deletion-warning {
 
 .hx-profile-tab {
   display: none;
+}
+
+div.hx-new-popup div.hx-content {
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 0;
+  z-index: 1800;
+  opacity: 1;
+  position: fixed;
+  text-align: center;
+  background: #0f0f0f;
+  overflow-x: hidden;
+  transition: height 0.5s ease-out, opacity 0.5s;
+}
+div.hx-new-popup div.hx-content input {
+  font-size: larger;
+}
+div.hx-new-popup .hx-close-new {
+  top: 1rem;
+  left: 1rem;
+  width: 2.5rem;
+  height: 2.5rem;
+  padding: 0.5rem;
+  position: absolute;
+  font-size: 1.5rem;
+  border-radius: 50%;
+}
+div.hx-new-popup .hx-close-new:hover {
+  cursor: pointer;
+  background: #141415;
+}
+div.hx-new-popup .hx-close-new:active {
+  opacity: 0.6;
 }/*# sourceMappingURL=hxchat.css.map */

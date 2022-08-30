@@ -61,13 +61,14 @@ div.hx-alert
     width: max-content
     padding: 1rem
     background: $bg-alert
-    // margin-top: 1rem
     text-align: left
+    transition: transform 1s ease-in
     border-left: 3px solid transparent
     margin-bottom: 1rem
-    // border-radius: 10px
-    transition: transform 1s ease-in
     
+    span
+        margin-right: 1rem
+
     &.hx-error
         border-left-color: $danger
 
@@ -75,8 +76,9 @@ div.hx-alert
         border-left-color: $success
 
     .hx-close
-        display: none
         float: right
+        display: none
+        margin-left: 5px
 
         &:hover
             cursor: pointer

@@ -64,9 +64,12 @@ div.hx-alert {
   padding: 1rem;
   background: rgba(255, 255, 255, 0.0156862745);
   text-align: left;
+  transition: transform 1s ease-in;
   border-left: 3px solid transparent;
   margin-bottom: 1rem;
-  transition: transform 1s ease-in;
+}
+div.hx-alert span {
+  margin-right: 1rem;
 }
 div.hx-alert.hx-error {
   border-left-color: #df2a19;
@@ -75,8 +78,9 @@ div.hx-alert.hx-success {
   border-left-color: #18b718;
 }
 div.hx-alert .hx-close {
-  display: none;
   float: right;
+  display: none;
+  margin-left: 5px;
 }
 div.hx-alert .hx-close:hover {
   cursor: pointer;

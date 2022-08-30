@@ -34,8 +34,8 @@ def register():
         except sqlalchemy.exc.OperationalError: # SQL database empty
             user = None
         
-        if user:
-            set_error('User already exists.')
+        if user or username.lower() in ['Guest', 'HELIX', 'Team HELIX', 'HELIX Support Team', 'Admin', 'Admins', 'Support', 'HELIX User Support', 'HELIX Developers']:
+            set_error('This username is already taken.')
         elif len(username) < 3:
             set_error('Username must be longer than 2 characters.')
         elif len(username) > 24:

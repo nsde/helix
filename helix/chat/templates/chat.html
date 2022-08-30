@@ -16,7 +16,7 @@
     <div class="hx-main hx-chat-layout">
         <div class="hx-sidebar" id="room-chooser">
             <i class="bi bi-chevron-left hx-close-room-chooser" title="Go back to your chat" onclick="closeRoomChooser();" id="room-chooser-close"></i>
-            <h1>Rooms <a class="hx-profile-tab" onclick="openProfileOnMobile();">&nbsp;Profile</a></h1>
+            <h1>Rooms <a class="hx-alt-tab hx-profile-tab" onclick="openProfileOnMobile();">&nbsp;Profile</a></h1>
 
             <div class="hx-sidebar-content">
                 {% for room in rooms %}
@@ -28,18 +28,37 @@
                 </a>
                 {% endfor %}
 
-                <a href="/chat/+" class="hx-button">
-                    <div class="hx-item hx-plus" title="Add a friend or room">
-                        <img src="https://cdn.pixabay.com/photo/2016/10/10/01/49/plus-1727487_960_720.png">
+                <a href="#add-new" class="hx-button">
+                    <div class="hx-item hx-plus" title="Add a friend or room" onclick="openNew();">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-send-plus" viewBox="0 0 16 16">
+                            <path d="M15.964.686a.5.5 0 0 0-.65-.65L.767 5.855a.75.75 0 0 0-.124 1.329l4.995 3.178 1.531 2.406a.5.5 0 0 0 .844-.536L6.637 10.07l7.494-7.494-1.895 4.738a.5.5 0 1 0 .928.372l2.8-7Zm-2.54 1.183L5.93 9.363 1.591 6.602l11.833-4.733Z"/>
+                            <path d="M16 12.5a3.5 3.5 0 1 1-7 0 3.5 3.5 0 0 1 7 0Zm-3.5-2a.5.5 0 0 0-.5.5v1h-1a.5.5 0 0 0 0 1h1v1a.5.5 0 0 0 1 0v-1h1a.5.5 0 0 0 0-1h-1v-1a.5.5 0 0 0-.5-.5Z"/>
+                          </svg>
                         <span>Add new</span>
                     </div>
                 </a>
+
+                <div class="hx-new-popup">
+                    <div class="hx-content" id="new-popup">
+                        <h2>Friends <a class="hx-alt-tab" href="#my-rooms">&nbsp;Rooms</a></h2>
+                        <i class="bi bi-chevron-left hx-close-new" title="Close window" onclick="closeNew();" id="new-close"></i>
+                        
+                        <form method="POST" action="/search/friends">
+                            <input
+                                type="text"
+                                id="username"
+                                name="username"
+                                placeholder="Search for an username..."
+                            />
+                        </form>     
+                    </div>
+                </div>
             </div>
 
             <div class="hx-user-profile" id="user-profile">
                 <div class="hx-content" title="Your user profile" onclick="openProfile();">
                     <img src="{{ avatar }}">
-                    <span>{{ current_user.username }}</span>
+                    <span>{{ current_user.username or 'Guest' }} </span>
                 </div>
             </div>
             <div class="hx-profile-popup" id="profile-popup">
@@ -48,9 +67,16 @@
                 <h1>Your Profile</h1>
                 <img src="{{ rooms[0].avatar }}">
 
-                <h2>{{ current_user.username }}</h2>
-                <p>User ID: <span class="hx-text-light">{{ current_user.id }}</span></p>
+                <h2>{{ current_user.username or 'Guest' }}</h2>
+                <p>User ID: <span class="hx-text-light">{{ current_user.id or '-1' }}</span></p>
 
+                <a href="#add-new" class="hx-button" onclick="openNew();">
+                    <button class="hx-action-button">
+                        <i class="bi bi-send-plus"></i>
+                        Add friends and rooms
+                    </button>
+                </a>
+                <br>
                 <a href="/logout" class="hx-button">
                     <button class="hx-action-button hx-yellow">
                         <i class="bi bi-door-closed"></i>
@@ -95,7 +121,7 @@
                 <h1>Baz</h1>
                 <p>User ID: <span class="hx-text-light">12234</span></p>
                 <a href="" class="hx-button">
-                    <button class="hx-action-button">
+                    <button class="hx-action-button hx-yellow">
                         <i class="bi bi-bell-slash"></i>
                         Mute
                     </button>
@@ -176,9 +202,9 @@
             </div>
         </div>
     </div>
-</body>
 
-{% include "chat/templates/js.html" %}
+    <script src="/static/js/chat.js"></script>
+</body>
     
 {% with hide_footer=true %}
     {% include "components/end.html" %}
