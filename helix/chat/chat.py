@@ -1,6 +1,10 @@
+import os
+import redis
 import flask
-import flask_sse
+import datetime
 import flask_login
+
+redis_db = redis.StrictRedis(password=os.getenv('REDIS_PASS'))
 
 chat_bp = flask.Blueprint('chat_bp',
     __name__,
@@ -21,6 +25,36 @@ DEMO_ROOMS = [
         # 'is_active': True
     }
 ]
+
+def chat_stream():
+    pubsub = redis_db.pubsub()
+    pubsub.subscribe('general')
+
+    for message in pubsub.listen():
+        if message['type'] == 'message':
+            yield 'data: %s\n\n' % message['data'].decode('utf-8')
+
+@chat_bp.route('/api/send', methods=['POST'])
+def api_send():
+    content = flask.request.get_json()['message']
+
+    if '¯' in content: #seperator
+        return flask.Response(status=400) # return bad response
+
+    try:
+        author = flask_login.current_user.username
+    except AttributeError:
+        author = 'Guest'
+    
+    message_time = datetime.datetime.now().strftime("%I:%M %p")
+
+    redis_db.publish('general', u'%s¯%s¯%s' % (message_time, author, content))
+
+    return flask.Response(status=204)
+
+@chat_bp.route('/api/stream')
+def api_stream():
+    return flask.Response(chat_stream(), mimetype='text/event-stream')
 
 # @flask_login.login_required
 @chat_bp.route('/@<room_id>')

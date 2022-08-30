@@ -236,6 +236,7 @@ div.hx-chat-history {
 
 html.hx > body.hx-chat {
   padding: 0 !important;
+  background: #0f0f0f !important;
 }
 
 div.hx-chatbox {
@@ -270,6 +271,7 @@ div.hx-chatbox div.hx-message div.hx-content img {
   border-radius: 10px;
 }
 div.hx-chatbox div.hx-message div.hx-content span.hx-time {
+  padding-left: 5px !important;
   opacity: 0.5;
   display: inline-block;
   -webkit-user-select: none;
@@ -321,12 +323,12 @@ div.hx-chatbox div.hx-input-box {
   position: fixed;
   bottom: 0;
   width: 100%;
-  background: #141415;
+  background: #0f0f0f;
   padding-bottom: 1rem;
 }
 div.hx-chatbox div.hx-input-box div.hx-emoji-selection {
   display: block;
-  margin-top: -20px;
+  margin-top: -30px;
 }
 div.hx-chatbox div.hx-input-box div.hx-emoji-selection img {
   height: 40px;

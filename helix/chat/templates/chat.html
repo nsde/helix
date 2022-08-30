@@ -2,8 +2,10 @@
     {% include "components/top.html" %}
 {% endwith %}
 
+<script src="/static/js/sse.js"></script>
 <script src="/static/js/emoji_keyboard.js"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js/dist/fuse.js"></script>
 
 <link rel="stylesheet" href="/static/js/emoji_keyboard.css">
@@ -63,7 +65,7 @@
             <div class="hx-user-profile" id="user-profile">
                 <div class="hx-content" title="Your user profile" onclick="openProfile();">
                     <img src="{{ avatar }}">
-                    <span>{{ current_user.username or 'Guest' }} </span>
+                    <span id="username-label">{{ current_user.username or 'Guest' }} </span>
                 </div>
             </div>
             <div class="hx-profile-popup" id="profile-popup">
@@ -149,64 +151,15 @@
                     </button>
                 </a>
             </div>
-            <div class="hx-chat-history">
-                <div class="hx-message hx-foreign">
-                    <div class="hx-content">
-                        Dude, look at this photo I totally indeed took and surely didn't copy from the interwebz:
-                        <span class="hx-time">9:46 PM</span>
-                    </div>
-                </div>
-                <div class="hx-message hx-foreign">
-                    <div class="hx-content">
-                        <img src="https://cdn.pixabay.com/photo/2022/08/19/01/06/ferris-wheel-7395944_960_720.jpg">
-                        <span class="hx-time">9:46 PM</span>
-                    </div>
-                </div>
-                <div class="hx-message hx-own">
-                    <div class="hx-content">
-                        yoo
-                        <span class="hx-time">9:57 PM</span>
-                    </div>
-                </div>
-                <div class="hx-message hx-foreign">
-                    <div class="hx-content">
-                        😎
-                        <span class="hx-time">9:46 PM</span>
-                    </div>
-                </div>
+            <div class="hx-chat-history" id="chat-history">
                 <div class="hx-message hx-day">
                     Today
                 </div>           
-                <div class="hx-message hx-foreign">
-                    <div class="hx-content">
-                        <div class="hx-author">
-                            Baz
-                        </div>
-                        bye
-                        <span class="hx-time">9:46 PM</span>
-                    </div>
-                </div>
-                <div class="hx-message hx-system">
-                    <i class="bi bi-arrow-left hx-leave"></i>
-                    Baz left the group
-                </div> 
-                <div class="hx-message hx-system">
+                <!-- <div class="hx-message hx-system">
                     <i class="bi bi-arrow-right hx-join"></i>
                     Baz joined the group
-                </div> 
-                <div class="hx-message hx-own">
-                    <div class="hx-content">
-                        welcome back
-                        <span class="hx-time">9:56 PM</span>
-                    </div>
-                </div>
-                <div class="hx-message hx-own">
-                    <div class="hx-content">
-                        :)
-                        <span class="hx-time">9:57 PM</span>
-                        <i class="bi bi-check2-all hx-read"></i>
-                    </div>
-                </div>    
+                    <p id="sse-out"></p>
+                </div>  -->
             </div>
             <div class="hx-input-box">
                 <div class="hx-emoji-selection" id="emoji-picker">
