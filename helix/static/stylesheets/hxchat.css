@@ -140,9 +140,10 @@ div.hx-chat-top-bar {
   padding: 0.5rem;
   padding-top: 0;
 }
-div.hx-chat-top-bar img {
+div.hx-chat-top-bar img, div.hx-chat-top-bar svg {
   border-radius: 50%;
   height: 50px;
+  width: 50px;
   position: relative;
   top: 10px;
   margin-right: 5px;
@@ -391,12 +392,13 @@ div.hx-room-details-popup {
   overflow-x: hidden;
   transition: height 0.5s ease-out, opacity 0.5s;
 }
-div.hx-room-details-popup img {
+div.hx-room-details-popup img, div.hx-room-details-popup svg {
   margin-top: 3rem;
   border-radius: 50%;
   height: 100px;
+  width: 100px;
 }
-div.hx-room-details-popup img:hover {
+div.hx-room-details-popup img:hover, div.hx-room-details-popup svg:hover {
   cursor: pointer;
   opacity: 0.7s;
 }
