@@ -5,9 +5,10 @@ a.hx-button
 
 div.hx-sidebar
     width: 20%
-    height: 80%
+    height: 100%
     z-index: 1
     position: fixed
+    box-shadow: 0 0 35px black
 
     h1
         margin-top: 0
@@ -54,11 +55,12 @@ div.hx-sidebar
 
     div.hx-user-profile
         position: absolute
-        bottom: -3rem
+        bottom: 5rem
         left: 0
         width: 80%
         margin-top: 1rem
         padding-top: 1rem
+        background: $bg-dim
         border-top: 2px solid $fg-grey
 
         h1
@@ -235,7 +237,7 @@ html.hx>body.hx-chat
 
 div.hx-chatbox
     height: 100%
-    margin-left: 30%
+    margin-left: calc(20% + 6rem)
 
     div.hx-message
         width: 100%
@@ -305,7 +307,7 @@ div.hx-chatbox
         width: 100%
         background: $bg-dim
         padding-bottom: 1rem
-        
+
         div.hx-emoji-selection
             display: block
             margin-top: -30px

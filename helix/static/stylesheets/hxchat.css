@@ -4,9 +4,10 @@ a.hx-button {
 
 div.hx-sidebar {
   width: 20%;
-  height: 80%;
+  height: 100%;
   z-index: 1;
   position: fixed;
+  box-shadow: 0 0 35px black;
 }
 div.hx-sidebar h1 {
   margin-top: 0;
@@ -53,11 +54,12 @@ div.hx-sidebar div.hx-sidebar-content div.hx-item.hx-plus:hover {
 }
 div.hx-sidebar div.hx-user-profile {
   position: absolute;
-  bottom: -3rem;
+  bottom: 5rem;
   left: 0;
   width: 80%;
   margin-top: 1rem;
   padding-top: 1rem;
+  background: #0f0f0f;
   border-top: 2px solid rgba(168, 168, 168, 0.5568627451);
 }
 div.hx-sidebar div.hx-user-profile h1 {
@@ -241,7 +243,7 @@ html.hx > body.hx-chat {
 
 div.hx-chatbox {
   height: 100%;
-  margin-left: 30%;
+  margin-left: calc(20% + 6rem);
 }
 div.hx-chatbox div.hx-message {
   width: 100%;

@@ -34,7 +34,7 @@ def register():
         except sqlalchemy.exc.OperationalError: # SQL database empty
             user = None
         
-        if user or username.lower() in ['Guest', 'HELIX', 'Team HELIX', 'HELIX Support Team', 'Admin', 'Admins', 'Support', 'HELIX User Support', 'HELIX Developers']:
+        if user or username.lower() in ['Guest'] or 'helix' in username.lower():
             set_error('This username is already taken.')
         elif len(username) < 3:
             set_error('Username must be longer than 2 characters.')
@@ -42,6 +42,8 @@ def register():
             set_error('Username can\'t be longer than 24 characters.')
         elif len(password) < 7:
             set_error('Password must be at least 7 characters.')
+        elif len(password) > 128:
+            set_error('Password can\'t be longer than 128 characters.')
         else:
             user = User(
                 username=username,
@@ -66,7 +68,7 @@ def login():
         user = User.query.filter_by(username=username).first()
         if user:
             if werkzeug.security.check_password_hash(user.password, password):
-                set_success('Logged in successfully!')
+                set_success('Welcome back!')
                 flask_login.login_user(user, remember=True)
                 return flask.redirect('/chat')
             else:

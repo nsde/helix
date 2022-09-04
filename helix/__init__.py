@@ -14,7 +14,10 @@ db = flask_sqlalchemy.SQLAlchemy()
 # DATABASE
 db = flask_sqlalchemy.SQLAlchemy()
 
+app = None
+
 def create_app():
+    global app
     # app.config["REDIS_URL"] = os.environ.get("REDIS_URL")
 
     app = flask.Flask(__name__, static_url_path='/static', static_folder='static/')
@@ -34,8 +37,7 @@ def create_app():
     app.register_blueprint(chat_bp)
 
     db.init_app(app)
-
-    create_database(app)
+    init_database(app)
 
     login_manager = flask_login.LoginManager()
     login_manager.session_protection = 'strong'
@@ -47,9 +49,10 @@ def create_app():
     @login_manager.user_loader
     def load_user(id):
         return models.User.query.get(int(id))
+
     return app
 
-def create_database(app):
+def init_database(app):
     if not os.path.exists('helix/' + DB_NAME):
         db.create_all(app=app)
         print('Created Database!')
