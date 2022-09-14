@@ -1,3 +1,9 @@
+# __init__ imports
+from . import system
+from . import jsondata
+
+# Regular imports
+
 import os
 import flask
 import logging
@@ -9,7 +15,6 @@ from dotenv import load_dotenv
 DB_NAME = 'database.db'
 
 load_dotenv()
-db = flask_sqlalchemy.SQLAlchemy()
 
 # DATABASE
 db = flask_sqlalchemy.SQLAlchemy()
@@ -33,8 +38,11 @@ def create_app():
 
     from .base.base import base_bp
     from .chat.chat import chat_bp
+    from .rooms.rooms import rooms_bp
+
     app.register_blueprint(base_bp)
     app.register_blueprint(chat_bp)
+    app.register_blueprint(rooms_bp)
 
     db.init_app(app)
     init_database(app)
@@ -49,6 +57,10 @@ def create_app():
     @login_manager.user_loader
     def load_user(id):
         return models.User.query.get(int(id))
+
+    @app.context_processor
+    def injector():
+        return dict(avatar='https://cdn.pixabay.com/photo/2017/11/10/05/48/user-2935527_960_720.png')
 
     return app
 

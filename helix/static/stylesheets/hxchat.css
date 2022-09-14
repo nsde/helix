@@ -179,6 +179,10 @@ div.hx-chat-history {
   margin-bottom: 2rem;
 }
 
+.hx-tab {
+  text-decoration: none !important;
+}
+
 .hx-alt-tab {
   opacity: 0.4;
   text-decoration: none !important;
@@ -496,6 +500,10 @@ div.hx-new-popup div.hx-content {
   background: #0f0f0f;
   overflow-x: hidden;
   transition: height 0.5s ease-out, opacity 0.5s;
+}
+div.hx-new-popup div.hx-content hr {
+  opacity: 0.5;
+  width: 350px;
 }
 div.hx-new-popup div.hx-content input {
   font-size: larger;

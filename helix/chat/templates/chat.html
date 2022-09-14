@@ -47,24 +47,53 @@
 
                 <div class="hx-new-popup">
                     <div class="hx-content" id="new-popup">
-                        <h2>Friends <a class="hx-alt-tab" href="#my-rooms">&nbsp;Rooms</a></h2>
+                        <h2>
+                            <a class="hx-tab" href="#room">Rooms</a>
+                            <a class="hx-alt-tab" href="#username">&nbsp;Friends</a>
+                        </h2>
                         <i class="bi bi-chevron-left hx-close-new" title="Close window" onclick="closeNew();" id="new-close"></i>
                         
+                        <h3>
+                            <i class="bi bi-plus-square"></i>
+                            Create a new room
+                        </h3>
+                        <form method="POST" action="/room/create">
+                            <input
+                                type="text"
+                                id="room"
+                                name="room"
+                                placeholder="Room name"
+                            />
+                        </form>
+                        <h4>
+                            <i class="bi bi-arrow-right"></i>
+                            How to join a room
+                        </h4>
+                        <p>
+                            You need to be invited to join a chat room.
+                            <br>
+                            Please ask the room owner for a invitation link!
+                        </p> 
+                        <hr>
+                        <h3>
+                            <i class="bi bi-people"></i>
+                            Add a friend
+                        </h3>
                         <form method="POST" action="/search/friends">
                             <input
                                 type="text"
                                 id="username"
                                 name="username"
-                                placeholder="Search for an username..."
+                                placeholder="You friend's username..."
                             />
-                        </form>     
+                        </form>
                     </div>
                 </div>
             </div>
 
             <div class="hx-user-profile" id="user-profile">
                 <div class="hx-content" title="Your user profile" onclick="openProfile();">
-                    <img src="{{ avatar }}">
+                    <img src="{{ avatar or 'https://cdn-icons-png.flaticon.com/512/3442/3442087.png' }}">
                     <span id="username-label">{{ current_user.username or 'Guest' }} </span>
                 </div>
             </div>
@@ -72,7 +101,7 @@
                 <i class="bi bi-chevron-left hx-close-profile" title="Go back to your chat" onclick="closeProfile();" id="profile-close"></i>
                 <br>
                 <h1>Your Profile</h1>
-                <img src="{{ avatar }}">
+                <img src="{{ avatar or 'https://cdn-icons-png.flaticon.com/512/3442/3442087.png' }}">
 
                 <h2>{{ current_user.username or 'Guest' }}</h2>
                 <p>User ID: <span class="hx-text-light">{{ current_user.id or '-1' }}</span></p>

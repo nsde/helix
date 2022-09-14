@@ -61,6 +61,8 @@ def register():
 
 @base_bp.route('/login', methods=['GET', 'POST'])
 def login():
+    error_message = 'Incorrect user or password.'
+
     if flask.request.method == 'POST':
         username = flask.request.form.get('username')
         password = flask.request.form.get('password')
@@ -72,9 +74,9 @@ def login():
                 flask_login.login_user(user, remember=True)
                 return flask.redirect('/chat')
             else:
-                set_error('Incorrect password, try again.')
+                set_error(error_message)
         else:
-            set_error('User does not exist.')
+            set_error(error_message)
 
     return flask.render_template('base/templates/login.html')
 
@@ -87,8 +89,11 @@ def logout():
 @flask_login.login_required
 @base_bp.route('/delete', methods=['POST'])
 def delete():
-    user = User.query.filter_by(id=flask_login.current_user.id).first()
-    
+    try:
+        user = User.query.filter_by(id=flask_login.current_user.id).first()
+    except AttributeError: # guest user
+        return flask.redirect('/')
+
     if werkzeug.security.check_password_hash(user.password, flask.request.form.get('password')):
         db.session.delete(user)
         db.session.commit()
