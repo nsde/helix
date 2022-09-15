@@ -3,6 +3,7 @@ import sqlalchemy
 import flask_login
 import werkzeug.security
 
+from .. import system
 from .. import db
 from ..models import User
 
@@ -20,7 +21,6 @@ def set_success(message: str):
 @base_bp.route('/')
 def index():
     return flask.render_template('base/templates/home.html')
-
 
 @base_bp.route('/register', methods=['GET', 'POST'])
 def register():
@@ -51,8 +51,19 @@ def register():
             )
             
             db.session.add(user)
-            db.session.commit()
+
+            try:
+                db.session.commit()
+            except sqlalchemy.exc.OperationalError:
+                return '''
+                    Sorry, the account system is currently under maintenance! You account was not created.<br>
+                    Please <a href="https://onlix.me/contact">contact</a> the server administrator<br>
+                    or <a href="/">return back home</a>.
+                '''
+
             flask_login.login_user(user, remember=True)
+            system.create_user()
+
             set_success('Account created!')
 
             return flask.redirect('/chat')
@@ -89,9 +100,9 @@ def logout():
 @flask_login.login_required
 @base_bp.route('/delete', methods=['POST'])
 def delete():
-    try:
-        user = User.query.filter_by(id=flask_login.current_user.id).first()
-    except AttributeError: # guest user
+    user = system.get_current_user()
+
+    if not user: # guest
         return flask.redirect('/')
 
     if werkzeug.security.check_password_hash(user.password, flask.request.form.get('password')):
@@ -101,6 +112,11 @@ def delete():
         return flask.redirect('/?deleted=1')
     else:
         return flask.redirect('/chat?deletion-failed=1')
+
+@flask_login.login_required
+@base_bp.route('/avatar/change', methods=['POST'])
+def change_avatar():
+    return 418
 
 @base_bp.route('/about')
 def about():

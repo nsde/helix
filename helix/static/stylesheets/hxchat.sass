@@ -173,6 +173,26 @@ div.hx-chat-top-bar
         cursor: pointer
         background: $bg-dim
 
+div.hx-avatar-add
+    height: 0
+    position: relative
+    top: 0
+    left: 0
+    
+    opacity: 0
+
+    &:hover
+        opacity: 0.9
+
+#hx-avatar-upload
+    margin-top: 0
+    cursor: pointer
+    position: relative
+    top: -120px
+    height: 100px
+    width: 100px
+    opacity: 0 !important
+
 div.hx-chat-history
     background: $bg-dim
     margin-bottom: 2rem
@@ -275,11 +295,13 @@ div.hx-chatbox
         &.hx-foreign div.hx-content
             background: $bg-light
             border-bottom-left-radius: 0
+            margin-left: 1rem
 
         &.hx-own div.hx-content
             float: right
             background: $accent
             border-bottom-right-radius: 0
+            margin-right: 1rem
 
         &.hx-day
             user-select: none

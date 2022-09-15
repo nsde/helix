@@ -110,7 +110,14 @@ div.hx-main
 
     input[type="checkbox"]
         &:hover
-            cursor: pointer    
+            cursor: pointer
+
+div.hx-login-wall
+    opacity: 0.3
+    pointer-events: none
+
+    *::selection
+        background: none
 
 @media (max-width: 768px)
     div.hx-main

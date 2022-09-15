@@ -1,8 +1,6 @@
-# __init__ imports
-from . import system
-from . import jsondata
-
 # Regular imports
+
+from . import admin
 
 import os
 import flask
@@ -45,7 +43,7 @@ def create_app():
     app.register_blueprint(rooms_bp)
 
     db.init_app(app)
-    init_database(app)
+    admin.init_database(DB_NAME, db, app, check=True) # TEMPORARILY CHANGE "check" TO "True" IS YOU GET ISSUES WITH THE DATABASE
 
     login_manager = flask_login.LoginManager()
     login_manager.session_protection = 'strong'
@@ -64,7 +62,7 @@ def create_app():
 
     return app
 
-def init_database(app):
-    if not os.path.exists('helix/' + DB_NAME):
-        db.create_all(app=app)
-        print('Created Database!')
+###
+# __init__ imports
+from . import system
+from . import models

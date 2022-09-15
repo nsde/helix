@@ -127,6 +127,17 @@ div.hx-main input[type=checkbox]:hover {
   cursor: pointer;
 }
 
+div.hx-login-wall {
+  opacity: 0.3;
+  pointer-events: none;
+}
+div.hx-login-wall *::-moz-selection {
+  background: none;
+}
+div.hx-login-wall *::selection {
+  background: none;
+}
+
 @media (max-width: 768px) {
   div.hx-main {
     padding: 0;

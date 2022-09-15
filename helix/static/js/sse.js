@@ -2,7 +2,6 @@ function sse() {
     var source = new EventSource('/api/stream');
     
     source.onmessage = function(e) {
-        
         myName = document.getElementById('username-label').textContent.trim();
         author = e.data.split('¯')[1].trim();
         content = e.data.split('¯')[2];
@@ -65,6 +64,7 @@ function post(content) {
     xhr.open('POST', '/api/send', true);
     xhr.setRequestHeader('Content-Type', 'application/json');
     xhr.send(JSON.stringify({
+        room: window.location.href.split('@').pop(),
         message: content
     }));
 
