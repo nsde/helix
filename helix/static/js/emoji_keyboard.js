@@ -74,7 +74,7 @@ class EmojiKeyboard {
             else
                 return;
         }
-        kb.classList.toggle('emojikb-hidden');
+        try {kb.classList.toggle('emojikb-hidden');} catch {}
     }
 
     add_emojis(emojis) {
@@ -157,9 +157,11 @@ class EmojiKeyboard {
             })
             return;
         }
+
         if (!this.fuse) this.init_fuse();
         const result = Array.from(this.fuse.search(event.target.value), e => e.item.name);
         let hiddens = new Map(Array.from(this.categories, v => [v, 0]));
+
         event.target.ownerDocument.querySelectorAll('img.emojikb-emoji').forEach(e => {
             e.classList.toggle('emojikb-hidden', !result.includes(e.dataset.name));
             if (!result.includes(e.dataset.name)) {
@@ -173,7 +175,6 @@ class EmojiKeyboard {
     }
 
     init_fuse() {
-        // https://fusejs.io/
         let flattened = [];
         for (const list of this.emojis.values()) {
             flattened = flattened.concat(list);
@@ -195,7 +196,8 @@ class EmojiKeyboard {
 
     init_base_emojis() {
         // https://gist.github.com/oliveratgithub/0bf11a9aff0d6da7b46f1490f86a71eb
-        fetch("https://gist.githubusercontent.com/oliveratgithub/0bf11a9aff0d6da7b46f1490f86a71eb/raw/d8e4b78cfe66862cf3809443c1dba017f37b61db/emojis.json").then(async response => {
+        // https://gist.githubusercontent.com/oliveratgithub/0bf11a9aff0d6da7b46f1490f86a71eb/raw/d8e4b78cfe66862cf3809443c1dba017f37b61db/emojis.json
+        fetch("/static/js/emojis.json").then(async response => {
             var contentType = response.headers.get("content-type");
             if (contentType && (contentType.includes("application/json") || contentType.includes("text/plain"))) {
                 const json = await response.json();
@@ -231,7 +233,6 @@ class EmojiKeyboard {
         catch (err) {
             console.error(err);
         }
-        // console.warn("Missing emoji category:", subcategory)
     }
 
     create_keyboard(document) {
@@ -269,24 +270,28 @@ class EmojiKeyboard {
         // search div
         let search_div = document.createElement("div");
         search_div.id = "emojikb-searchdiv";
-        // let s_div = document.createElement("div");
+    
         let s_area = document.createElement("input");
         s_area.id = "emojikb-textinput";
         s_area.placeholder = this.default_placeholder;
         s_area.addEventListener('input', (e) => this.on_typing(e))
         search_div.appendChild(s_area);
         search_div.appendChild(parse_svg(SVG_HTML.search));
+
         // under the search div
         let div2 = document.createElement("div");
         div2.id = "emojikb-div2";
+
         // categories list
         let list_div = document.createElement("div");
         list_div.id = "emojikb-leftlist";
         let div3 = document.createElement("div");
         div3.id = "emojikb-div3";
+
         // emojis list
         let emojis_div = document.createElement("div");
         emojis_div.id = "emojikb-show";
+
         // filling lists
         let first_emoji;
         for (const v of [
@@ -318,6 +323,7 @@ class EmojiKeyboard {
             }
 
             let categ_span = document.createElement("span");
+
             categ_span.innerText = v[1];
             categ_name.appendChild(parse_svg(v[0]));
             categ_name.appendChild(categ_span);
@@ -360,15 +366,19 @@ class EmojiKeyboard {
         // emoji info
         let info_div = document.createElement("div");
         info_div.id = "emojikb-info";
+
         let info_icon = document.createElement("img");
         info_icon.id = "emojikb-info-icon";
+        
         info_icon.src = first_emoji.url;
+
         let info_name = document.createElement("div");
         info_name.id = "emojikb-info-name";
         info_name.innerText = first_emoji.name;
         info_div.appendChild(info_icon);
         info_div.appendChild(info_name);
-        // we add everything together
+
+        // add everything together
         div3.appendChild(emojis_div);
         div3.appendChild(info_div);
         div2.appendChild(list_div);

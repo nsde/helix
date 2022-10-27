@@ -1,58 +1,68 @@
+function receive(data) {
+    myName = document.getElementById('username-label').textContent.trim();
+
+    if (data.includes('¤')) {
+        // New day message
+        var dayElement = document.createElement('div');
+        dayElement.className = 'hx-message hx-day';
+        dayElement.innerHTML = data.split('¤')[1]
+        document.getElementById('chat-history').appendChild(dayElement);
+        return;
+    }
+
+    author = data.split('¯')[1].trim();
+    content = data.split('¯')[2];
+    time = data.split('¯')[0];
+    
+    var msgElement = document.createElement('div');
+    msgElement.className = 'hx-message';
+
+    if (content.includes('»@')) {
+        // Welcome message
+        msgElement.classList.add('hx-system')
+
+        var iconElement = document.createElement('div');
+        iconElement.className = 'bi bi-arrow-right hx-join';
+        msgElement.appendChild(iconElement);
+        msgElement.insertAdjacentHTML('beforeend',  author + ' is online'); // [!] XSS WARNING [!]
+    }
+
+    else {              
+        // Normal message
+        if (author === myName) {
+            msgElement.classList.add('hx-own')
+        }
+        else {
+            msgElement.classList.add('hx-foreign')
+        }
+
+        document.getElementById('chat-history').appendChild(msgElement);
+        
+        var contentElement = document.createElement('div');
+        contentElement.className = 'hx-content';
+        msgElement.appendChild(contentElement);
+        
+        if (!(author === myName)) {
+            var authorElement = document.createElement('div');
+            authorElement.className = 'hx-author';
+            authorElement.innerText = author;
+            contentElement.appendChild(authorElement);
+        }
+        
+        var timeElement = document.createElement('span');
+        timeElement.className = 'hx-time';
+        timeElement.innerText = time;
+
+        contentElement.insertAdjacentHTML('beforeend', content); // [!] XSS WARNING [!]
+        contentElement.appendChild(timeElement);
+    }
+}
+
 function sse() {
     var source = new EventSource('/api/stream');
     
     source.onmessage = function(e) {
-        myName = document.getElementById('username-label').textContent.trim();
-        author = e.data.split('¯')[1].trim();
-        content = e.data.split('¯')[2];
-        time = e.data.split('¯')[0];
-        
-        var msgElement = document.createElement('div');
-        msgElement.className = 'hx-message';
-
-        if (content.includes('»@')) {
-            // Welcome message
-            msgElement.classList.add('hx-system')
-
-            var iconElement = document.createElement('div');
-            iconElement.className = 'bi bi-arrow-right hx-join';
-            msgElement.appendChild(iconElement);
-            msgElement.insertAdjacentHTML('beforeend',  author + ' is online'); // [!] XSS WARNING [!]
-        }
-
-        else {              
-            // Normal message
-            if (author === myName) {
-                msgElement.classList.add('hx-own')
-            }
-            else {
-                msgElement.classList.add('hx-foreign')
-            }
-
-            document.getElementById('chat-history').appendChild(msgElement);
-            
-            var contentElement = document.createElement('div');
-            contentElement.className = 'hx-content';
-            msgElement.appendChild(contentElement);
-            
-            
-            if (!(author === myName)) {
-                var authorElement = document.createElement('div');
-                authorElement.className = 'hx-author';
-                authorElement.innerText = author;
-                contentElement.appendChild(authorElement);
-            }
-            
-            var timeElement = document.createElement('span');
-            timeElement.className = 'hx-time';
-            timeElement.innerText = time;
-
-            contentElement.insertAdjacentHTML('beforeend', content); // [!] XSS WARNING [!]
-            contentElement.appendChild(timeElement);
-        }
-        
-        // out.textContent = e.data + '\\n' + out.textContent;
-        
+        receive(e.data);
         window.scrollTo(0, document.body.scrollHeight);
     };
 }
@@ -80,6 +90,8 @@ window.addEventListener("keydown", (event) => {
 }, true);
 
 sse();
-setTimeout(function() {
+
+window.onload = function() {
     post('»@' + document.getElementById('username-label').textContent.trim()) // join message
-}, 100)
+}
+

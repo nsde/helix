@@ -16,15 +16,19 @@ load_dotenv()
 
 SECRET_FOLDER = os.getenv('SECRET_FOLDER')
 FILE_SUFFIX = '.json'
+UPLOAD_ALLOWED = ['png', 'jpg', 'jpeg', 'gif', 'webm']
 
 if SECRET_FOLDER.endswith('/'):
     SECRET_FOLDER = SECRET_FOLDER[:-1]
 
-for folder in ['room', 'user']:
+for folder in ['room', 'user', 'cloud', 'cloud/avatar']:
     path = f'{SECRET_FOLDER}/{folder}'
 
     if not os.path.exists(path):
         os.mkdir(path)
+
+def allows_file(filename) -> bool:
+    return '.' in filename and filename.rsplit('.', 1)[1].lower() in UPLOAD_ALLOWED
 
 def write(category: str, folder_id: str, data):
     try:
@@ -41,6 +45,7 @@ def read(category: str, folder_id: str) -> Union[list, dict]:
 
     except FileNotFoundError as e:
         admin.error(f'system read (json) FileNotFound: {e}')
+        return None
 
     else:
         return data
@@ -53,8 +58,7 @@ def get_current_user():
     try:
         return User.query.filter_by(id=flask_login.current_user.id).first()
     except AttributeError: # guest user
-        nothing = None
-        return nothing
+        return None
 
 def create_user():
     user = get_current_user()

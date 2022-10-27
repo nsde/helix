@@ -3,8 +3,8 @@ import sqlalchemy
 import flask_login
 import werkzeug.security
 
-from .. import system
 from .. import db
+from .. import system
 from ..models import User
 
 base_bp = flask.Blueprint('base_bp',
@@ -94,12 +94,14 @@ def login():
 @flask_login.login_required
 @base_bp.route('/logout')
 def logout():
+    """User logout"""
     flask_login.logout_user()
     return flask.redirect('/')
 
 @flask_login.login_required
 @base_bp.route('/delete', methods=['POST'])
-def delete():
+def delete_user():
+    """Deletes the current user account."""
     user = system.get_current_user()
 
     if not user: # guest
@@ -110,14 +112,34 @@ def delete():
         db.session.commit()
 
         return flask.redirect('/?deleted=1')
-    else:
-        return flask.redirect('/chat?deletion-failed=1')
+    return flask.redirect('/chat?deletion-failed=1')
 
 @flask_login.login_required
 @base_bp.route('/avatar/change', methods=['POST'])
 def change_avatar():
-    return 418
+    """Edit the user avatar/profile picture."""
+
+    if not system.get_current_user():
+        return flask.abort(403)
+
+    if 'file' not in flask.request.files:
+        set_error('No file part!')
+
+    uploaded_file = flask.request.files['avatar']
+
+    if uploaded_file.filename == '':
+        set_error('No file selected!')
+
+    if uploaded_file and system.allows_file(uploaded_file.filename):
+        # {system.random_id()}.{uploaded_file.filename.rsplit(".", 1)[1].lower()}'
+        uploaded_file.save(f'{system.SECRET_FOLDER}/cloud/@{system.get_current_user().id}')
+    else:
+        set_error(f'This file type is not allowed. Please upload a {"/".join(system.UPLOAD_ALLOWED)} file.')
+
+    set_success('Upload successful! <a href="">Reload</a> to see the changes.')
+    return '<script>window.history.go(-1);</script>'
 
 @base_bp.route('/about')
 def about():
+    """The website's about page"""
     return flask.render_template('base/templates/about.html')

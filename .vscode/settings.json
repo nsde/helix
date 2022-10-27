@@ -6,6 +6,8 @@
         "**/CVS": true,
         "**/.DS_Store": true,
         "**/Thumbs.db": true,
+        "**/__pycache__": true,
+        "**/*.css.map": true,
         "**/.css": true,
         "**/.css.map": true,
         "helix/static/helix.css": true,
@@ -23,7 +25,8 @@
         "helix/static/stylesheets/hxchat.css": true,
         "helix/static/stylesheets/hxchat.css.map": true,
         "helix/chat/__pycache__": true,
-        "helix/__pycache__": true
+        "helix/__pycache__": true,
+        "helix/rooms/__pycache__": true
     },
     "hide-files.files": [
         "helix/static/helix.css",
@@ -41,6 +44,7 @@
         "helix/static/stylesheets/hxchat.css",
         "helix/static/stylesheets/hxchat.css.map",
         "helix/chat/__pycache__",
-        "helix/__pycache__"
+        "helix/__pycache__",
+        "helix/rooms/__pycache__"
     ]
 }

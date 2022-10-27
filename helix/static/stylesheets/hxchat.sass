@@ -134,13 +134,12 @@ div.hx-sidebar
                 opacity: 0.6
 
 div.hx-chat-top-bar
-    position: sticky
-    top: 0
+    position: fixed
     background: $bg
     z-index: 800
     padding: .5rem
     padding-top: 0
-    // margin-top: 0
+    width: 100%
 
     img, svg
         border-radius: 50%
@@ -153,6 +152,17 @@ div.hx-chat-top-bar
     h1
         margin: 0
         display: inline-block
+        position: relative
+
+        top: 5px
+
+        font-size: 1.2rem
+        font-weight: normal
+
+        span
+            font-size: .7rem
+            display: block
+            opacity: 0.5
 
     div.hx-chat-menu
         float: right
@@ -182,16 +192,17 @@ div.hx-avatar-add
     opacity: 0
 
     &:hover
-        opacity: 0.9
+        opacity: 0.8
 
-#hx-avatar-upload
-    margin-top: 0
+    img
+        width: 105px
+
+input.hx-avatar-upload
+    display: none
+
+.hx-verified
+    color: $fg-alt
     cursor: pointer
-    position: relative
-    top: -120px
-    height: 100px
-    width: 100px
-    opacity: 0 !important
 
 div.hx-chat-history
     background: $bg-dim
@@ -214,9 +225,6 @@ div.hx-chat-history
 
     .hx-profile-tab
         display: inline-block !important
-
-    div.hx-chatbox div.hx-input-box input
-        width: 85vw
 
     .hx-close-room-chooser
         display: block
@@ -327,24 +335,27 @@ div.hx-chatbox
 
     div.hx-input-box
         z-index: 200
-        position: fixed
         bottom: 0
-        width: 100%
-        background: $bg-dim
-        padding-bottom: 1rem
+        width: 70%
+        height: 80px
+        display: grid
+        position: fixed
+        background: $bg-dim    
+
+        grid-template-columns: 80px auto 50px
 
         div.hx-emoji-selection
-            display: block
-            margin-top: -30px
+            width: 43px
+            height: 40px
+            
+            position: relative
+            top: 15px
+            margin: 1rem
+            margin-top: 0px
 
-            img
-                height: 40px
-                width: 40px
-                
-                position: relative
-                top: 60px
-                left: 15px
-                margin-right: 5px
+            .hx-icon
+                width: 100%
+                height: 100%                
 
                 &:hover
                     cursor: pointer
@@ -353,14 +364,39 @@ div.hx-chatbox
                 &:active
                     opacity: 0.6
 
-        input
-            width: 60%
-            margin-left: 70px
-            font-size: larger
-            background: $bg-light
+        div.hx-message-input
+            width: 100%
 
-            &:focus
-                outline: none
+            input
+                width: 100%
+                font-size: larger
+                background: $bg-light
+
+                &:focus
+                    outline: none
+
+        div.hx-upload
+            width: 50px
+            height: 50px
+    
+            display: inline-block
+            cursor: pointer
+            border-radius: 10px
+    
+            position: relative
+            top: 10px
+            margin-left: 25px
+            padding-right: 15px
+
+            &:hover
+                background: $bg-light
+
+            i
+                padding: 1rem
+                font-size: xx-large
+
+            form, input
+                display: none
 
 @media (min-width: 1200px)
     div.hx-sidebar
@@ -379,14 +415,6 @@ div.hx-chatbox
 
 .hx-close-room-chooser
     display: none
-
-@media (max-width: 1200px)
-    div.hx-chatbox div.hx-input-box input
-        width: 95vw
-
-    @media (max-width: 700px)
-    div.hx-chatbox div.hx-input-box input
-        width: 75vw
 
 div.hx-room-details-popup
     top: 0
@@ -439,6 +467,10 @@ button.hx-action-button
 
     &.hx-red:hover
         background: $danger !important
+
+@media (max-width: 700px)
+    button.hx-action-button
+        width: 50% !important
 
 span.hx-text-light
     opacity: 0.6

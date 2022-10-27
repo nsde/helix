@@ -8,7 +8,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js/dist/fuse.js"></script>
 
-<link rel="stylesheet" href="/static/js/emoji_keyboard.css">
+<link rel="stylesheet" href="/static/stylesheets/emoji_keyboard.css">
 
 {% with class="hx-floating-alert" %}
     {% include "components/flasher.html" %}
@@ -38,7 +38,7 @@
                 </a>
                 {% endfor %}
 
-                <a href="#add-new" class="hx-button">
+                <a class="hx-button">
                     <div class="hx-item hx-plus" title="Add a friend or room" onclick="openNew();">
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-folder-plus" viewBox="0 0 16 16">
                             <path d="m.5 3 .04.87a1.99 1.99 0 0 0-.342 1.311l.637 7A2 2 0 0 0 2.826 14H9v-1H2.826a1 1 0 0 1-.995-.91l-.637-7A1 1 0 0 1 2.19 4h11.62a1 1 0 0 1 .996 1.09L14.54 8h1.005l.256-2.819A2 2 0 0 0 13.81 3H9.828a2 2 0 0 1-1.414-.586l-.828-.828A2 2 0 0 0 6.172 1H2.5a2 2 0 0 0-2 2zm5.672-1a1 1 0 0 1 .707.293L7.586 3H2.19c-.24 0-.47.042-.683.12L1.5 2.98a1 1 0 0 1 1-.98h3.672z"/>
@@ -55,7 +55,7 @@
                         <a href="/register">
                             <button class="hx-action-button">
                                 <i class="bi bi-person-circle"></i>
-                                You need to log in to access the features below!
+                                Register to access these features:
                             </button>
                         </a>
                         {% endif %}
@@ -108,7 +108,7 @@
 
             <div class="hx-user-profile" id="user-profile">
                 <div class="hx-content" title="Your user profile" onclick="openProfile();">
-                    <img src="{{ avatar or 'https://cdn-icons-png.flaticon.com/512/3442/3442087.png' }}">
+                    <img src="{{ avatar }}">
                     <span id="username-label">{{ current_user.username or 'Guest' }} </span>
                 </div>
             </div>
@@ -116,19 +116,24 @@
                 <i class="bi bi-chevron-left hx-close-profile" title="Go back to your chat" onclick="closeProfile();" id="profile-close"></i>
                 <br>
                 <h1>Your Profile</h1>
+                <form action="/avatar/change" id="avatar-form" method="POST" enctype="multipart/form-data">
+                    <input type="file" id="avatar-upload" class="hx-avatar-upload" name="avatar" onchange="document.querySelector('#avatar-form').submit();"/>
+                </form>
                 <div class="hx-avatar-add">
-                    <img title="Upload a new avatar" src="https://cdn-icons-png.flaticon.com/512/5007/5007662.png">
-                
-                    <form action="/avatar/change" id="avatar-form" method="POST">
-                        <input type="file" id="hx-avatar-upload" name="avatar" onchange="document.querySelector('#avatar-form').submit();"/>
-                    </form>
+                    <img title="Upload a new avatar" onclick="document.getElementById('avatar-upload').click();"  src="https://cdn-icons-png.flaticon.com/512/5007/5007662.png">                
                 </div>
-                <img src="{{ avatar or 'https://cdn-icons-png.flaticon.com/512/3442/3442087.png' }}">
+                <img src="{{ avatar }}">
 
-                <h2>{{ current_user.username or 'Guest' }}</h2>
-                <p>User ID: <span class="hx-text-light">{{ current_user.id or '-1' }}</span></p>
+                <h2>{{ this_user.name or 'Guest' }}
+                    {% if this_user.verified %}
+                        <i title="Verified" class="bi bi-patch-check-fill hx-verified"></i>
+                    {% endif %}
+                </h2>
+                <p>User ID: <span class="hx-text-light">{{ this_user.id or '-1' }}</span></p>
+                <p>Rooms: <span class="hx-text-light">{{ this_user.rooms | length or '0' }}</span></p>
+                <p>Friends: <span class="hx-text-light">{{ this_user.friends | length or '0' }}</span></p>
 
-                <a href="#add-new" class="hx-button" onclick="openNew();">
+                <a class="hx-button" onclick="openNew();">
                     <button class="hx-action-button">
                         <i class="bi bi-send-plus"></i>
                         Add friends and rooms
@@ -141,7 +146,7 @@
                         Log out
                     </button>
                 </a>
-                <a href="#delete-account" class="hx-button" onclick="accountDeletionWarning();">
+                <a class="hx-button" onclick="accountDeletionWarning();">
                     <button class="hx-action-button hx-red">
                         <i class="bi bi-person-dash"></i>
                         Delete account
@@ -160,6 +165,8 @@
                             placeholder="•••••••••••"
                         />
                     </form>
+
+                    <p>Press enter to confirm the deletion.</p>
                 </div>
             </div>
         </div>
@@ -175,8 +182,8 @@
                     </svg>
                 {% endif %}
 
-                <h1>{{ room.name }}</h1>
-                
+                <h1>{{ room.name or 'Example Room' }}<span>HELIX Room</span></h1>
+
                 <div class="hx-chat-menu" title="Switch to another chat room" onclick="openRoomChooser();">
                     <i class="bi bi-list"></i>
                 </div>
@@ -194,48 +201,55 @@
                     </svg>
                 {% endif %}
 
-                <h1>{{ room.name }}</h1>
+                <h1>{{ room.name or 'Demo Room' }}</h1>
 
-                <p>ID: <span class="hx-text-light">{{ room.id }}</span></p>
-                <a href="" class="hx-button">
+                <p>ID: <span class="hx-text-light">{{ room.id or '-1' }}</span></p>
+                <a class="hx-button">
                     <button class="hx-action-button hx-yellow">
-                        <i class="bi bi-bell-slash"></i>
-                        Mute
+                        <i class="bi bi-trash"></i>
+                        Clear chat
                     </button>
                 </a>
-                <a href="" class="hx-button">
+                <a class="hx-button">
                     <button class="hx-action-button hx-red">
                         <i class="bi bi-person-dash"></i>
-                        Remove
+                        Leave conversation
                     </button>
                 </a>
             </div>
             <div class="hx-chat-history" id="chat-history">
                 <div class="hx-message hx-day">
-                    Today
-                </div>           
-            </div>
-            
-            {% for message in room.messages %}
-            <div class="hx-message {{ 'hx-own' if message.author_name == current_user.name  else 'hx-foreign' }}">
-                <div class="hx-content">{{ message.text }}
-                    <span class="hx-time">{{ message.time }}</span>
                 </div>
             </div>
-            {% endfor %}
 
             <div class="hx-input-box">
                 <div class="hx-emoji-selection" id="emoji-picker">
-                    <img title="Choose an emoji..." src="https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/120/twitter/322/grinning-face-with-big-eyes_1f603.png">
+                    <svg title="Choose an emoji..." class="hx-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-emoji-smile" viewBox="0 0 16 16">
+                        <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+                        <path d="M4.285 9.567a.5.5 0 0 1 .683.183A3.498 3.498 0 0 0 8 11.5a3.498 3.498 0 0 0 3.032-1.75.5.5 0 1 1 .866.5A4.498 4.498 0 0 1 8 12.5a4.498 4.498 0 0 1-3.898-2.25.5.5 0 0 1 .183-.683zM7 6.5C7 7.328 6.552 8 6 8s-1-.672-1-1.5S5.448 5 6 5s1 .672 1 1.5zm4 0c0 .828-.448 1.5-1 1.5s-1-.672-1-1.5S9.448 5 10 5s1 .672 1 1.5z"/>
+                    </svg>
                 </div>
-                <div class="message-input"> 
-                    <input type="text" id="message-input" placeholder="Message" autofocus>
+                <div style="{{ 'cursor: not-allowed' if not room.name else '' }}" class="hx-message-input"> 
+                    <input style="{{ 'pointer-events: none;' if not room.name else '' }}" type="text" id="message-input" placeholder="{{ 'Message' if room.name else 'Message (just a demo!)' }}" autofocus>
+                </div>
+                <div class="hx-upload" onclick="alert('Coming soon!');">
+                    <form action="/upload/" id="file-form" method="POST" enctype="multipart/form-data">
+                        <input type="file" id="file-upload" name="upload" onchange="document.getElementById('file-form').submit();"/>
+                    </form>    
+                    <i class="bi bi-upload"></i>
                 </div>
             </div>
         </div>
     </div>
 
     <script src="/static/js/chat.js"></script>
+
+    <script>
+        // Display all old messages
+        {% for msg in msgs %}
+            receive('{{ msg }}')
+        {% endfor %}
+    </script>
 </body>
     
 {% with hide_footer=true %}

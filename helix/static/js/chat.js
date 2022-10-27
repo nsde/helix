@@ -122,3 +122,11 @@ document.onkeydown = function(e) {
         inputField.focus();
     }
 }
+
+document.getElementById('emoji-picker').onclick = function(e) {
+    try {
+        if (!(kb.classList.contains('emojikb-hidden'))) {
+            emojiKeyboard.toggle_window();
+        }
+    } catch {}
+};
