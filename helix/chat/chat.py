@@ -106,14 +106,17 @@ def chat_room(current_room_id):
     msgs = []
 
     last_message_timestamp = None
-    for message in current_room['messages']:
-        if message.get("timestamp") and isinstance(last_message_timestamp, float):
-            if float(message.get("timestamp"))//86400 != float(last_message_timestamp)//86400:
-                day = arrow.get(message.get("timestamp")).datetime.strftime('%-d.%-m.')
-                msgs.append(f'¤{day}')
 
-        msgs.append(f'{message.get("time") or "?"}¯{message.get("author_name") or "System"}¯{message.get("text") or "[No message text]"}')
-        last_message_timestamp = message.get("timestamp")
+    if 'messages' in current_room:
+        for message in current_room['messages']:
+            if message.get("timestamp") and isinstance(last_message_timestamp, float):
+                if float(message['timestamp'])//86400 != float(last_message_timestamp)//86400:
+                    # if last message was sent on another day
+                    day = arrow.get(message.get("timestamp")).datetime.strftime('%-d.%-m.')
+                    msgs.append(f'¤{day}')
+
+            msgs.append(f'{message.get("time") or "?"}¯{message.get("author_name") or "System"}¯{message.get("text") or "[No message text]"}')
+            last_message_timestamp = message.get("timestamp")
 
     return flask.render_template('chat/templates/chat.html',
         rooms=rooms,

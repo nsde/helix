@@ -227,10 +227,10 @@ div.hx-chat-history {
   div.hx-sidebar {
     display: none;
   }
-  .hx-profile-tab {
+  a.hx-profile-tab {
     display: inline-block !important;
   }
-  .hx-close-room-chooser {
+  i.hx-close-room-chooser {
     display: block;
     position: absolute;
     left: 0.2rem;
@@ -242,7 +242,7 @@ div.hx-chat-history {
     height: 2.5rem;
     z-index: 600;
   }
-  .hx-close-room-chooser:hover {
+  i.hx-close-room-chooser:hover {
     cursor: pointer;
     opacity: 0.6;
   }
@@ -357,37 +357,38 @@ div.hx-chatbox div.hx-message .hx-join {
 div.hx-chatbox div.hx-input-box {
   z-index: 200;
   bottom: 0;
-  width: 70%;
   height: 80px;
-  display: grid;
+  display: flex;
+  box-sizing: border-box;
+  align-items: center;
   position: fixed;
+  padding-left: 1rem;
   background: #0f0f0f;
-  grid-template-columns: 80px auto 50px;
 }
 div.hx-chatbox div.hx-input-box div.hx-emoji-selection {
-  width: 43px;
-  height: 40px;
   position: relative;
-  top: 15px;
-  margin: 1rem;
-  margin-top: 0px;
+  margin: 0.5rem;
+  border-radius: 10px;
 }
-div.hx-chatbox div.hx-input-box div.hx-emoji-selection .hx-icon {
-  width: 100%;
-  height: 100%;
+div.hx-chatbox div.hx-input-box div.hx-emoji-selection i {
+  padding: 1rem;
+  font-size: xx-large;
 }
-div.hx-chatbox div.hx-input-box div.hx-emoji-selection .hx-icon:hover {
+div.hx-chatbox div.hx-input-box div.hx-emoji-selection i:hover {
   cursor: pointer;
   opacity: 0.8;
 }
-div.hx-chatbox div.hx-input-box div.hx-emoji-selection .hx-icon:active {
+div.hx-chatbox div.hx-input-box div.hx-emoji-selection i:active {
   opacity: 0.6;
 }
+div.hx-chatbox div.hx-input-box div.hx-emoji-selection:hover {
+  background: rgba(106, 106, 106, 0.1411764706);
+}
 div.hx-chatbox div.hx-input-box div.hx-message-input {
-  width: 100%;
+  flex-grow: 2;
+  margin-bottom: 10px;
 }
 div.hx-chatbox div.hx-input-box div.hx-message-input input {
-  width: 100%;
   font-size: larger;
   background: rgba(106, 106, 106, 0.1411764706);
 }
@@ -395,15 +396,11 @@ div.hx-chatbox div.hx-input-box div.hx-message-input input:focus {
   outline: none;
 }
 div.hx-chatbox div.hx-input-box div.hx-upload {
-  width: 50px;
-  height: 50px;
   display: inline-block;
   cursor: pointer;
   border-radius: 10px;
+  margin: 0.5rem;
   position: relative;
-  top: 10px;
-  margin-left: 25px;
-  padding-right: 15px;
 }
 div.hx-chatbox div.hx-input-box div.hx-upload:hover {
   background: rgba(106, 106, 106, 0.1411764706);
